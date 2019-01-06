@@ -1,0 +1,168 @@
+\documentclass[ebook,12pt,oneside,openany]{memoir}
+\usepackage[utf8x]{inputenc}
+\usepackage[english]{babel}
+\usepackage{url}
+
+\newcommand{\problem}[1]{\textbf{Problem: #1}}
+
+\title{Hacking the Lightning Network - A protocol to scale Bitcoin [Draft]} 
+\author{Rene Pickhardt}
+
+\begin{document}
+\maketitle
+
+\newpage
+This book is open source and licensed under the \textit{Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International} license. You may find a copy of the license in the git repository of this book\footnote{\url{https://github.com/renepickhardt/the-lightning-network-book/LICENCE}} or on the homepage of Creative Commons.\footnote{\url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}}
+
+For the attribution you have to link to my homepage \url{https://www.rene-pickhardt.de}, my youtube channel: \url{https://www.youtube.com/user/RenePickhardt} and the git repository of this book at: \url{https://github.com/renepickhardt/the-lightning-network-book}. Obviously you have to state my Name Rene Pickhardt as the author.
+
+\textbf{Consider financially supporting my book writing effort!}
+
+Since this is an open source effort I rely on support of the community. In order to be able to work full time on this book I need a budget of 21.21212121 Bitcoin (with current exchange rates).
+
+Bitcoin via: \url{https://tallyco.in/s/lnbook/} or fiat money at:  \url{https://patreon.com/renepickhardt}
+
+
+\newpage
+\tableofcontents
+\newpage
+
+\chapter{Introduction}
+This book is a guide to understand the Lightning Network as a technology to solve the scalability problem of Bitcoin.
+It will first introduce the basic concepts of the Bitcoin protocol.
+We will only make use of applied crytography on a high level without the mathematical details. 
+Therefor basically no cryptographic knowledge is needed to be able to follow through this book.
+For the sake of completness some of the cryptographic details will be stated in the appendix.
+Thus the Bitcoin section should be understandable by any computer science (or similar) undergraduate student.
+As the Lightning Network is built on top of Bitcoin also the rest of the book should be easily understandbale by the same audience.
+We conclude the first chapter by looking at some fundamental issues with bitcoin as a payment system and explain the necessity for the Lightning Network.
+
+We continue by explaning the theory and construction of the Lightning Network.
+We will understand how to construct payment channels via Revocable Sequence Maturity Contracts and how to solve the routing issues via Hashed Time Locked Contracts.
+These two forms of smart contracts allow for the Blockchain to be transformed from a transaction layer for payments to an enforcing layer of those contracts.
+Similar to the real world most contracts have never to be enforced via a court ruling but are negotiated bilaterally between consenting parties.
+In the same sense we will understand that the Lightning Network reduces the load of the Bitcoin Network significantly by transforming it to be an contract enforcing layer instaed of a value transaction layer.
+
+After we understand the core contracts that enable the Lightning Network we will look at the technologies to define a properly working protocol.
+We will study the transport layer with its Sphinx mix format and Onion routing first and move on to the gossip protocol which enables the creation of a peer to peer network.
+
+After we understand the technical foundations of the Lightning Network a practical guide is given.
+We look at the current wallets, implementations and tools for developers.
+We create some small Lightning Network applications to demonstrate how easy it becomes with the help of the Lightning Network to accept Bitcoin payments
+
+Finally we look at some of the more advanced topics of the Lightning Network.
+These are mainly relevant for researchers and developers who want to improve the protocol.
+We decided to include these topics because it seems plausible that users of the Lightning Network gain a clear picture of current trends and potential future enhancements. 
+
+One core principle of this book is that we introduce new concepts by formulating problem statements first. We will then try to understand why these problems existed and how the technologies in this book will be able to solve those problems. In many cases we will derive more specific problems which we will tackle down in a similar fasion. 
+
+\chapter{Bitcoin}
+\section{Introduction to Electronic Cash}
+\problem{How can we create a digital form of cash?}
+With the invention of the micro controller which lead to the development of computurs, the internet and smart phones we have seen that many things that existed physically exist in a digital version now.
+Examples could be:
+\begin{itemize}
+\item Photographs, video recordings and music tapes.
+\item Books, newspapers and other print publications.
+\item Postal services for sending mail.
+\item Archives and libraries.
+\end{itemize}
+Also a lot of of communication has become digitally with services like email or instant messanging.
+It seems that a huge reason for society to adopt to the technological breakthrough is that in many cases digital goods are more convenient than their physical counterparts.
+Take paper publications as an example: While it might be very convenient to carry around one book it is hardly practical to carry arround your entire library.
+With modern electronic readers it is possible to access the world's largest collection of text books on a single device.
+One can even esily store the entire Wikipedia - which as an encyclopedia is larger than any encyclopedia that has previously existed - on a small nano SD card.
+Remember such an SD card is smaller than your thumbnail.
+
+With regard to cash we can see a similar trend.
+Due to its sparsity gold served as one of the first universally accepted materials to serve as a currency.
+However using gold was not too practical as it is a heavy material and cannot be split easily.
+Physical coins and bills (which in the beginning where backed by gold) emerged.
+This form of cash is still used in all major countries of the world.\footnote{althogh currency nowerdays is not backed by gold anymore.}
+Similarly to carrying around a single book it might be highly convenient to carry around a 20 Euro\footnote{or what ever local currency you prefere} bill in order to buy some groceries. However we hardly see people caring arround 1000 times as much in order to buy a car or even more bills to buy a house.
+Physical money in large quantities seems to be too cumbersome. 
+The traditional banking sector and financial industry has come up with solutions like wire transfer or cheques.
+Also we can observer the emergence of online banking, credit cards and online money transfer services.
+From a perspective of convenience these services can be seen as a digital form of cash and are similarly convenient for the user like a digital book.
+
+However we should state that while the the digital solutions which the financial industrie provided might be convenient they cannot - in fact they must not - be seen as a real form of cash.
+Physical cash in the form of coins and bills is supposed to be yours if you have it in your pocket.\footnote{Technically in most contries the bills and coins belong to the contry which issued the cash. However you are entitled to the monetary value printed on those bills. As long as the value of the bills is preserved you can be sure that you are able to spend your cash as long as others accept it.}
+The digital alternatives however do only exist virtually on some computer.
+From a computer a technical point of view they are just an entry in a third parties data base.
+Thus they are based on trusting this third party.
+If your digital cash service provider decides to deny you access to your funds or run with your money there is basically nothing you can do.\footnote{Of course in most juristictions there is the legal system preventing them from stealing your money.}
+Such a scenario can easily happen as we have seen with the bankrupcy of the famous bank Lehman Brothers in the summer of 2008. Many people that have trusted their cash to this bank have lost a fortune.
+While we have to be fair and attest that it was certainly not the fault of their digital and virtual cash systemt that they filed for bankruptcy we see that trusting a bank to have a digital form of cash removes the most important property of cash.
+The fact that you (and only you) will own it.
+But the reson banks existed was not only to be provider of a digital form of cash.
+They already existed before the digital age because people did not want to cary arround vast amounts of money.
+
+So the question remains: Can there be a better form of digital cash in comparison to the solution provided by the traditional banking industrie? 
+
+Similarly to our example of e-books and pysical cash (which we carry around with us) this form of digital or electronic cash should be stored on the digital device of the user.
+Thus it becomes just a piece of information.
+In this way the user is not dependent on a trusted third party.\footnote{Of course as bitcoin and Lightning Network developers we should be aware of the fact that we still trust the hardware producesers and the software of our operating system and the consensus mechanisms of the network and protocol.}
+
+However computers and digital services seem to have a fundamental property that might make them useless for electronic cash systems.
+Information can easily be duplicated by copy and pasting.
+We remember that gold was used as one of the first mediums of exchange since it could not be duplicated.
+
+To emphasize this issue again: A physical bill is actually transfered when making a payment. In contrast when spending a digital coin - as a piece of information - it can can just be copied and duplicated.
+The recipient has no chance of knowing that the sender actually deleted the coin.
+If the sender did not delete the coin the sender would be able to spend the coin again by copying the information to another person.
+This process is called double spending.
+Obviously double spending sabotages the property that cash should act as a store of value. As the supply would be infinite a single coin would always be worthless. 
+
+We can conclude that electronic cash is only useful if we solve the problem of double spending electronic coins and create a limited supply of electronic coins.
+
+One obvious solution is a central authority or custodian who understands who owns which coins and who allows cash transactions only if the sender has enough cash.
+While this solution works and is already implemented by traditional banks it does not solve our desire that we carry around our electronic coins in our devices and - even worse - we still need to trust third party service with all the risks that we have experienced with the collaps of lehman brothers.
+
+Luckily in late 2008 a person or group under the pseudonym Satoshi Nakamoto published the Bitcoin paper.
+This major technological breakthrough showed the world how it would be possible to create a decentralized form of electronic cash in which every participant stores their own funds and copying those coins does not mean douplicating them (as only one copy can be spend).
+
+\section{Proof of Work and Blockchain}
+\section{Scalability issues of blockchain technologies}
+\chapter{Lightning Network}
+\section{Basic properties of the Lightning Network}
+\section{Payment Channels via Revocable Sequence Maturity Contracts}
+\section{Enabeling Routing via Hashed Time Locked Contracts}
+\section{Transport layer: Sphinx Routing to increase privacy}
+\section{Peer to Peer layer: The gossip protocol}
+\section{Payment requests and BOLT11 invoices}
+\section{Basics of Lightning Technology}
+\chapter{Practical guide}
+\section{Lightning Wallets}
+\section{Lightning Nodes}
+\section{Lightning Application Development}
+\section{Useful Applications and Tools}
+\chapter{Advanced Topics}
+\section{Channel management}
+\section{Autopilots}
+\section{Securing your Lightning Network node}
+\section{Pitfalls with concurrent requests}
+\section{Eltoo payment channels}
+\section{Channel factories}
+\section{RGB protocol and colored coins}
+\section{Rendez vous routing to hide the recipient}
+\section{Risks}
+\subsection{Hot Wallet Risk}
+\subsection{Backup dilemma}
+\subsection{Denial of Service attacks}
+\begin{itemize}
+\item Spam htlcs to block channels
+\item spam the blockchain
+\end{itemize}
+\chapter{Controversial topics}
+\section{Consequences of decentralization}
+\section{Custodial Services, Lightning hubs and banks}
+\section{Privacy and regulatory challenges}
+\section{Consensus, Forking and Altcoins}
+
+\appendix
+\chapter{Cryptography}
+\section{ECDSA}
+
+Once upon a time\ldots This document shows how you can get ePub-like formatting in \LaTeX{} with the \verb|memoir| document class. You can't yet export directly to ePub from writeLaTeX, but you can download the source and run it through a format conversion tool, such as \verb|htlatex| to get HTML, and then go from HTML to ePub with a tool like Sigil or Calibre. See \url{http://tex.stackexchange.com/questions/16569} for more advice. And they lived happily ever after.
+
+\end{document}
