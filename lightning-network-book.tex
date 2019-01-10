@@ -23,13 +23,13 @@
 \newpage
 This book is open source and licensed under the \textit{Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International} license. You may find a copy of the license in the git repository of this book\footnote{\url{https://github.com/renepickhardt/the-lightning-network-book/LICENCE}} or on the homepage of Creative Commons.\footnote{\url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}}
 
-For the attribution you have to link to my homepage \url{https://www.rene-pickhardt.de}, my youtube channel: \url{https://www.youtube.com/user/RenePickhardt} and the git repository of this book at: \url{https://github.com/renepickhardt/the-lightning-network-book}. Obviously, you have to state my Name Rene Pickhardt as the author.
+For the attribution you have to link to my homepage \url{https://www.rene-pickhardt.de}, my youtube channel: \url{https://www.youtube.com/user/RenePickhardt} and the git repository of this book at: \url{https://github.com/renepickhardt/the-lightning-network-book}. Obviously, you have to state my name Rene Pickhardt as the author.
 
 \textbf{Consider financially supporting my book writing effort!}
 
-Since this is an open source effort, I rely on the support of the community. In order to be able to work full time on this book, I need a budget of 21.21212121 Bitcoin (with current exchange rates).
+Since this is an open source effort, I rely on the support of the community. In order to be able to work full time on this book, I need a budget of 21.21212121 BTC (with current exchange rates).
 
-Bitcoin via: \url{https://tallyco.in/s/lnbook/} or fiat money at:  \url{https://patreon.com/renepickhardt}
+Donate using Bitcoin via: \url{https://tallyco.in/s/lnbook/} or fiat money at:  \url{https://patreon.com/renepickhardt}
 
 
 \newpage
@@ -56,13 +56,13 @@ We will only make use of applied cryptography on a high level without the mathem
 Therefore basically no cryptographic knowledge is needed to be able to follow through this book.
 For the sake of completeness some of the cryptographic details will be stated in the appendix.
 Thus the Bitcoin section should be understandable by any computer science (or similar) undergraduate student.
-As the Lightning Network is built on top of Bitcoin also the rest of the book should be easily understandable by the same audience.
-We conclude the first chapter by looking at some fundamental issues with bitcoin as a payment system and explain the necessity for the Lightning Network.
+As the Lightning Network is built on top of Bitcoin the rest of the book should be easily understandable by the same audience.
+We conclude the first chapter by looking at some fundamental issues with Bitcoin as a payment system and explain the necessity for the Lightning Network.
 
 We continue by explaining the theory and construction of the Lightning Network.
 We will understand how to construct payment channels via Revocable Sequence Maturity Contracts and how to solve the routing issues via Hashed Time Locked Contracts.
 These two forms of smart contracts allow for the Blockchain to be transformed from a transaction layer for payments to an enforcing layer of those contracts.
-Similar to the real world most contracts have never to be enforced via a court ruling but are negotiated bilaterally between consenting parties.
+Similar to the real world, most contracts will never have to be enforced via a court ruling but are negotiated bilaterally between consenting parties.
 In the same sense, we will understand that the Lightning Network reduces the load of the Bitcoin Network significantly by transforming it to be a contract enforcing layer instead of a value transaction layer.
 
 After we understand the core contracts that enable the Lightning Network, we will look at the technologies to define a properly working protocol.
@@ -76,12 +76,12 @@ Finally, we look at some of the more advanced topics of the Lightning Network.
 These are mainly relevant for researchers and developers who want to improve the protocol.
 We decided to include these topics because it seems plausible that users of the Lightning Network gain a clear picture of current trends and potential future enhancements. 
 
-One core principle of this book is that we introduce new concepts by formulating problem statements first. We will then try to understand why these problems existed and how the technologies in this book will be able to solve those problems. In many cases, we will derive more specific problems which we will tackle down in a similar fashion.
+One core principle of this book is that we introduce new concepts by formulating problem statements first. We will then try to understand why these problems existed and how the technologies in this book will be able to solve those problems. In many cases, we will derive more specific problems which we will tackle in a similar fashion.
 
 \chapter{Bitcoin}
 \section{Introduction to Electronic Cash}
 \problem{How can we create a digital form of cash?}
-With the invention of the micro controller which lead to the development of computers, the internet and smart phones we have seen that many things that existed physically exist in a digital version now.
+With the invention of the micro controller which lead to the development of computers, the Internet and smart phones, we have seen that many things that existed physically now exist in a digital version too.
 Examples could be:
 \begin{itemize}
 \item Photographs, video recordings and music tapes.
@@ -89,31 +89,34 @@ Examples could be:
 \item Postal services for sending mail.
 \item Archives and libraries.
 \end{itemize}
-Also a lot of communication has become digitally with services like email or instant messaging.
+
+Also a lot of communication has become digitized with services like email or instant messaging.
 It seems that a huge reason for society to adopt a technological breakthrough is that in many cases digital goods are more convenient than their physical counterparts.
-Take paper publications as an example: While it might be very convenient to carry around one book it is hardly practical to carry around your entire library.
-With modern electronic readers, it is possible to access the world's largest collection of textbooks on a single device.
-One can even easily store the entire Wikipedia - which as an encyclopedia is larger than any encyclopedia that has previously existed - on a small nano SD card.
+Take paper publications as an example: While it might be very convenient to carry around one book, it is hardly practical to carry around your entire library.
+With modern electronic readers, it is possible to access the world's most extensive collection of textbooks on a single device.
+One can even easily store the entire Wikipedia - which as an encyclopedia is larger than any other encyclopedia that has previously existed - on a small nano SD card.
 Remember such an SD card is smaller than your thumbnail.
 
 With regard to cash, we can see a similar trend.
-Due to its sparsity gold served as one of the first universally accepted materials to serve as a currency.
-However using gold was not too practical as it is a heavy material and cannot be split easily.
+Due to its scarcity gold served as one of the first universally accepted materials to serve as a currency.
+However, using gold was not very practical as it is a heavy material and cannot be split easily.
 Physical coins and bills (which in the beginning were backed by gold) emerged.
-This form of cash is still used in all major countries of the world.\footnote{althogh currency nowadays is not backed by gold anymore.}
-Similarly to carrying around a single book it might be highly convenient to carry around a 20 Euro\footnote{or whatever local currency you prefere} bill in order to buy some groceries. However we hardly see people caring around 1000 times as much in order to buy a car or even more bills to buy a house.
+This form of cash is still used in all major countries of the world.\footnote{although currency nowadays is no longer backed by gold.}
+Similarly to carrying around a single book, it might be highly convenient to carry around a 20 Euro\footnote{or whatever local currency you prefer} bill in order to buy some groceries. However we hardly see people carrying around 1000 times as much in order to buy a car or even more bills to buy a house.
 Physical money in large quantities seems to be too cumbersome. 
-The traditional banking sector and financial industry has come up with solutions like wire transfer or cheques.
-Also we can observe the emergence of online banking, credit cards and online money transfer services.
+The traditional banking sector and financial industry have come up with solutions like wire transfer or cheques.
+Also, we can observe the emergence of online banking, credit cards and online money transfer services.
+From a perspective of convenience, these services can be seen as a digital form of cash and are similarly convenient for the user like a digital book.
 
-However we should state that while the digital solutions which the financial industry provided might be convenient, they cannot - in fact they must not - be seen as a real form of cash.
-Physical cash in the form of coins and bills is supposed to be yours if you have it in your pocket.\footnote{Technically in most countries the bills and coins belong to the country which issued the cash. However you are entitled to the monetary value printed on those bills. As long as the value of the bills is preserved you can be sure that you are able to spend your cash as long as others accept it.}
-The digital alternatives however do only exist virtually on some computer.
-From a computer a technical point of view they are just an entry in a third parties database.
-Thus they are based on trusting this third party.
-If your digital cash service provider decides to deny you access to your funds or run with your money there is basically nothing you can do.\footnote{Of course in most jurisdictions there is the legal system preventing them from stealing your money.}
-Such a scenario can easily happen as we have seen with the bankruptcy of the famous bank Lehman Brothers in the summer of 2008. Many people that have trusted their cash to this bank have lost a fortune.
-While we have to be fair and attest that it was certainly not the fault of their digital and virtual cash systems that they filed for bankruptcy we see that trusting a bank to have a digital form of cash removes the most important property of cash.
+However, we should state that while the digital solutions which the financial industry provided might be convenient, they cannot - in fact, they must not - be seen as a real form of cash.
+Physical cash in the form of coins and bills is supposed to be yours if you have it in your pocket.\footnote{Technically in most countries the notes and coins belong to the country which issued the cash. 
+However you are entitled to the monetary value printed on those bills. As long as the value of the notes is preserved, you can be sure that you are able to spend your cash as long as others accept it.}
+The digital alternatives, however, only exist virtually on some computer.
+From a technical point of view they are just entries in a third party's database.
+Thus, they are based on trusting this third party.
+If your digital cash service provider decides to deny you access to your funds or run away with your money, there is basically nothing you can do.\footnote{Of course in most jurisdictions there is the legal system preventing them from stealing your money.}
+Such a scenario can easily happen as we have seen with the bankruptcy of the famous bank Lehman Brothers in the summer of 2008. Many people that trusted their cash to this bank lost a fortune.
+While we have to be fair and attest that it was certainly not the fault of their digital and virtual cash systems that they filed for bankruptcy, we see that trusting a bank to have a digital form of cash removes the most important property of cash.
 The fact that you (and only you) will own it.
 But the reason banks existed was not only to be a provider of a digital form of cash.
 They already existed before the digital age because people did not want to carry around vast amounts of money.
@@ -121,23 +124,23 @@ They already existed before the digital age because people did not want to carry
 So the question remains: Can there be a better form of digital cash in comparison to the solution provided by the traditional banking industry? 
 
 Similarly to our example of e-books and physical cash (which we carry around with us) this form of digital or electronic cash should be stored on the digital device of the user.
-Thus it becomes just a piece of information.
-In this way the user is not dependent on a trusted third party.\footnote{Of course as bitcoin and Lightning Network developers we should be aware of the fact that we still trust the hardware producers and the software of our operating system and the consensus mechanisms of the network and protocol.}
+Thus, it becomes just a piece of information.
+In this way the user is not dependent on a trusted third party.\footnote{Of course as Bitcoin and Lightning Network developers we should be aware of the fact that we still trust the hardware producers, the software of our operating system and the consensus mechanisms of the network and protocol.}
 
-However computers and digital services seem to have a fundamental property that might make them useless for electronic cash systems.
+However, computers and digital services seem to have a fundamental property that might make them useless for electronic cash systems.
 Information can easily be duplicated by copy and pasting.
 We remember that gold was used as one of the first mediums of exchange since it could not be duplicated.
 
 To emphasize this issue again: A physical bill is actually transferred when making a payment. In contrast when spending a digital coin - as a piece of information - it can just be copied and duplicated.
 The recipient has no chance of knowing that the sender actually deleted the coin.
-If the sender did not delete the coin the sender would be able to spend the coin again by copying the information to another person.
+If the sender did not delete the coin, the sender would be able to spend the coin again by copying the information to another person.
 This process is called double spending.
-Obviously double spending sabotages the property that cash should act as a store of value. As the supply would be infinite a single coin would always be worthless. 
+Obviously, double spending sabotages the property that cash should act as a store of value. When the supply is infinite, a single coin becomes worthless. 
 
-We can conclude that electronic cash is only useful if we solve the problem of double spending electronic coins and create a limited supply of electronic coins.
+We can conclude that electronic cash is only useful if we solve the problem of double spending and create a limited supply of coins.
 
-One obvious solution is a central authority or custodian who understands who owns which coins and who allows cash transactions only if the sender has enough cash.
-While this solution works and is already implemented by traditional banks it does not solve our desire that we carry around our electronic coins in our devices and - even worse - we still need to trust third-party service with all the risks that we have experienced with the collapse of Lehman Brothers.
+One obvious solution is a central authority or custodian who knows who owns which coins, and allows cash transactions only if the sender has enough cash.
+While this solution works and is already implemented by traditional banks, it does not solve our desire that we carry around our electronic coins in our devices and - even worse - we still need to trust third-party services with all the risks that we have experienced with the collapse of Lehman Brothers.
 
 Luckily in late 2008 a person or group under the pseudonym Satoshi Nakamoto published the Bitcoin paper.
 This major technological breakthrough showed the world how it would be possible to create a decentralized form of electronic cash.
@@ -236,14 +239,14 @@ This shall serve as a counter argument that
 \section{Eltoo payment channels}
 \section{Channel factories}
 \section{RGB protocol and colored coins}
-\section{Rendez vous routing to hide the recipient}
+\section{Rendezvous routing to hide the recipient}
 \section{Risks}
 \subsection{Hot Wallet Risk}
 \subsection{Backup dilemma}
 \subsection{Denial of Service attacks}
 \begin{itemize}
-\item Spam htlcs to block channels
-\item spam the blockchain
+\item Spam HTLCs to block channels
+\item Spam the blockchain
 \end{itemize}
 \chapter{Controversial topics}
 \section{Consequences of decentralization}
