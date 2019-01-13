@@ -10,7 +10,9 @@
 
 \newglossaryentry{asymmetric cryptographic system}{name={asymmetric cryptographic system}, description={Asymmetric cryptography, or public-key cropytography is a cryptographic system that uses pairs of keys: public keys which may be disseminated widely, and private keys which are known only to the owner. The generation of such keys depends on cryptographic algorithms based on mathematical problems to produce one-way functions. Effective security only requires keeping the private key private; the public key can be openly distributed without compromising security.\url{https://en.wikipedia.org/w/index.php?title=Public-key_cryptography&oldid=877579180}}}
 \newglossaryentry{digital signature}{name={digital signature},description={A digital signature is a mathematical scheme for verifying the authenticity of digital messages or documents. A valid digital signature gives a recipient reason to believe that the message was created by a known sender, that the sender cannot deny having sent the message and that the message was not altered in transit. They can be seen as cryptographic commitments in which the message is not hidden.\url{https://en.wikipedia.org/w/index.php?title=Digital_signature&oldid=876680165}}}
-\newglossaryentry{cryptographic commitment}{name={cryptographic commitment}, description={A cryptographic commitment allows one to commit to a chosen value while keeping it hidden to others, with the ability to reveal the committed value later.\url{https://en.wikipedia.org/w/index.php?title=Commitment_scheme&oldid=842802201}}}
+\newglossaryentry{easy}{name={computationally easy}, description={A problem is considered to be computationally easy if there exists an alogorithm that is able to compute the solution to the problem rather quickly.\todo{exchange this with a more formal definition? Maybe use polynomial runtime.}}}
+\newglossaryentry{hard}{name={computationally hard}, description={A problem is considered to be computationally hard if no alogorithm exists or is known that is able to compute the solution to the problem rather quickly.\todo{exchange this with a more formal definition? Maybe use polynomial runtime.}}}
+
 
 \title{Hacking the Lightning Network - A protocol to scale Bitcoin [Draft]} 
 \author{Rene Pickhardt}
@@ -147,114 +149,174 @@ in which every participant stores access to their own funds and copying those co
 \problem{How do you claim ownership and authenticity of a digital good or a piece of information?}
 \todo{Definately rethink the approach for this section. Also in the above chapter it might not have been wise to already introduce the double spending problem.}
 By the end of the day cash is about ownership.
-Therfore when creating an electronic cash system we have to be able to ascribe ownership of digital information.
-Also it has to be possible to verify the authenticity of electronic cash in a similar fashion as one wants to able to verify the authenticity of a bank note.
-Interestingly in the digital world it becomes significantly harder to fake an electronic coin in comparison to a physical banknode as we will understand at the end of this section.
-As electronic cash is supposed to be a piece of information we can look in the field of computer science how ownership and authenticity of a piece of information is being claimed.
-The standard procedure would be to make use of \gls{digital signature}s which can be seen as a very special case of a \gls{cryptographic commitment}.
-Digital signatures will also be the method of choice for us to create electronic cash.
+Therfore when creating an electronic cash system we have to be able to ascribe ownership of digital information. \todo{need to define if I want to talk about information or messages}
+Another goal is to be able to verify the authenticity of electronic cash.
+We already expect in our everyday live that we can do the same with a bank note.
+As electronic cash is supposed to be a piece of information we can look in the field of computer science to see how ownership and authenticity of a piece of information can be claimed.
+The standard procedure would be to make use of \gls{digital signature}s.
+Interestingly in the digital world it becomes significantly harder to fake an electronic coin in comparison to a physical bank note.
+\footnote{Unless of course one does not handle ones private keys - which are used to create a digital signature -  properly.}
+
 
 \problem{How do digital signatures work?}
 A well known method to create digital signatures is by using an \gls{asymmetric cryptographic system}.
 Despite the fact that modern cryptography involves quite some advanced mathmatical theory and computer science I want to encourage you to stick with me in this section.
 Here we will just use this powerfull tool as a blackbox and describe its properties which should be easy to understand even for people who have always had trouble with mathematics.
-In the appendix we give some mathematical and technical background about elliptic curve cryptography and about how and why it actually works.
+In the appendix\todo{put in label} we give some mathematical and technical background about elliptic curve cryptography and about how and why it actually works to provide secure digital signatures.
 
-In its simplest form an asymmetric cryptographic system consists of two keys which by convention are called the \textbf{private} and the \textbf{public key}.
-From a computer science perspective each key is just a  piece of information encoded as a bitstring or from mathematic perspective it each key is just a number.
+An asymmetric cryptographic system consists of a large set of pairs of keys.
+The keys of each pair are called the \textbf{private} and the \textbf{public key} by convention.
+From a computer science perspective each key is just a piece of information encoded as a bitstring or from mathematical perspective each key is just a number.
 Due to some amazing mathmatical properties these keys turn out to be extremly usefull and have a (surpringly?) asymmetric relation to each other.
 Hence the name asymmetric cryptographic system.
 
-The three most important properties are as follows:
+Assuming we take an arbitrary key pair from the asymmetric cryptographic system this pair will have three important properties.
+The third property might seem rather abstract and useless at first but it is the property which leads to electronic cash and and cryptographic currencies. \footnote{While there is a little bit more cryptographic theory involved in creating cryptographic currencies this one is probably the most important building block.}
+The three properties are as follows:
 \begin{enumerate}
-\item We can easily compute the public key from a private key.
+\item \textbf{Asymmetry:} We can easily compute the public key from a private key.
 However the other way around is extremly hard to compute.
-In this context \textbf{easy} means that there is a well known algorithm and method to do this computation and that the computation also takes very little time.
-On the contrast \textbf{hard} means that there might be a well known algorithm\footnote{for example brute forcing by systematically trying all values for a private key and computing the corresponding public key and check if it is the public key that we started with} but it is not feasable\footnote{actually it would be more accurate to say that it is highly  unlikely} to do this with one or even a cluster of modern computers within a reasonable time intervall. \todo{break up into sentences.}
-\item With the help of the public key one can easily encrypt a message.
-This encrypted message can then easily be decrypted with the help of the private key.
+In this context \textbf{\gls{easy}} means that there is a well known algorithm and method to do this computation and that the computation also takes very little time.
+On the contrast \textbf{\gls{hard}} means that there might be a well known algorithm\footnote{For example brute forcing by systematically trying all values for a private key and computing the corresponding public key and check if it is the public key that we started with} to compute the solution.
+But even in that case it would not be feasable\footnote{actually it would be more accurate to say that it is highly  unlikely} to compute the solution with one computer or even a cluster of computers within a reasonable time intervall.
+\item \textbf{Encryption:} With the help of the public key one can easily encrypt a message.
+It is hard to decrypt the message with the public key.
+But the encrypted message can easily be decrypted with the help of the private key.
 Remember the private key is hard to derive from the pulic key.
 So we already see where the names come from.
 A person can publish their public key and everyone else can easily compute an encrypted message.
 This message can only easily be accessed (decrypted) if the private key is known.
-That is why it is suggested to keep the private key as private and as  secrete as possible.
-The main strenght of this property is that once such a keypair exists it is sufficiant to keep a small piece of information secure and secrete (the private key) in order to keep large amounts of information secrete by encrypting it with the help of a private key.
-\item Given a piece of information and a private key one can easily compute a digital signature.
+\item \textbf{Signatures:} Given a piece of information and a private key one can easily compute a digital signature.
   Any person who has access to this piece of information, the signature and the public key can easily verify that this signature was computeded with the private key from that particular piece of information.
   If only a single bit in the information was changed after the signature was computed it cannot be verified with the public key anymore.
   As with the first two properties digital signatures are asymmetric in the sense that it is very hard to produce a valid signature for a message and a private key if only the public key is known.
-  It is considered save to assume that the owner of the private (and thus also the public) key is indeed the authentic person to have created that message.
-  But even more crazy due to the asymmetric nature it is almost impossible to forge a digital signature.
+  It is considered save to assume that the owner of the private (and thus also the public) key is indeed the authorized person to have created that message.
+  Due to the asymmetric nature and the computanional hardness it is almost impossible to forge a digital signature.
 \end{enumerate}
-
-\todo{somehow conclude that all these methods are used to controll information.}
 
 \todo{INCLUDE GRPHAIC showing from private to public is easy and way back is difficult. Also show encryption and signature verifying mechanics}
 
-The third property might seem rather abstract and useless at first but it is the property which leads to electronic cash and and cryptographic currencies.
-While there is a little bit more cryptographic theory involved in creating cryptographic currencies this one is probably the most important building block.
+In the following we will look at some examples of these three properties to get a better feeling of what can be done with them.
+As one can allready see they are being used to control a piece of information.
 
-\example{Lets assume we have the message: \textit{I am a proud supporter of the Lightning Network book} I can use the private key of the bitcoin from the fundraiser of this book \textbf{1GZx8tWgDd21Rd8b1QdMrzdZGHgyfVkzaD} to compute a signature: \todo{do the computation!}.
-Now with the bitcoin address wich is almost a public key, the message and the signature you can verify that it was indeed the owner of the private key of that Bitcoin address who provided a signature to the message.
-If the message will be changed by adding the missing point at the end of message to \textit{I am a proud supporter of the Lightning Network book.} it will produce the following signature: \todo{compute it!} which as can be seen lookes completely different in comparison to the first signature.
-If I use the private keys for a different bitcoin address of mine for example {1CWtSk58d3rN1R3oGwMobJ6Ets9E2gvPj5} I can produce the signatures A and B for the first and second message. The signatures again look very different since they now belong to a different public and private key pair. Still with the second Bitcoin address anyone can verify them.}
+\example{Compute the public key from a private key}
+\todo{Come actually up with the example. On idea: to use python code from an ecdsa library and refere to the appendix.}
+With the help of the \textit{ecdsa} library in python we can generate a private key.
+If we print this key it looks like this: \todo{enter key}
+The object storing the private key has a method to compute the public key which will result in the following key: \todo{enter the public key}
+
+\example{Encrypt and decrypt a message}
+Using the public key from the previous example we can encrypt a message.
+Let our message be \textit{I am a proud supporter of the Lightning Network book}.
+The encrypted message will look like this: \todo{enter message}
+We can use the private key from the previous example to decrypt the message again.
+All of this can be seen in the following lines of python code.
+
+\todo{enter code here}
+
+It is suggested to keep the private key as private and as secret as possible.
+The great benefit of encryption is that it is sufficiant to keep a small piece of information secure and secret (the private key) in order to keep large amounts of information secret.
+This is done by encrypting it the information that is supposed to be kept secret.
+Since only people with the private key can access the original message we can savely share the encrypted file anywhere as long as we keep the private key secure.
+
+
+\example{Lets assume we have the message: \textit{I am a proud supporter of the Lightning Network book} I can use the private key of the bitcoin address from the fundraiser of this book \textbf{1GZx8tWgDd21Rd8b1QdMrzdZGHgyfVkzaD} to compute a signature: \todo{do the computation!}.
+  Now with the bitcoin address wich is almost a public key we can verify that the signature was indeed derived from the message and the corresponding private key.
+  This means that the owner of the private key was the authentic person to sign the message.
+  If the message will be changed by adding the missing point at the end of message to \textit{I am a proud supporter of the Lightning Network book.} it will produce the following signature: \todo{compute it!}.
+  We realize that it looks completely different in comparison to the first signature.
+  This emphasizes the fact that a signed message cannot be modified anymore.
+  This is astrong indicator to the validity of the message together with the signature and the public key.
+  If we use the private key for a different bitcoin address - for example {1CWtSk58d3rN1R3oGwMobJ6Ets9E2gvPj5} - we can produce the signatures \todo{enter} for the first and \todo{enter} for second message. The signatures again look very different since they now belong to a different public and private key pair.
+  Still with the second Bitcoin address anyone can verify them.
+This shows that digital signatures also provide a mean of ownership besides the previously seen poperty of providing the authenticity of a message.
+}
 
 While this example is nice in the sense that one can certainly prove ownership of a bitcoin address in most cases one doesn't want to prove that ownership explicitely.
 Actually the oposite is true. Many people who use Bitcoin want to stay anonymous. 
-However we need to have a mechanism to prove ownership of coins in order for others to be able to check if they actually gain new coins if we claim to transfer them
+However we need to have a mechanism to prove ownership of coins in order for others to be able to check if they actually gain new coins if we claim to transfer them.
+This method will be described in the following example.
+It will make use of digital signatures to define coins and the process of transfering those coins.
 
-\todo{improve example from wording (basically rewrite it and create pictures to depict the situation.}
-\example{Rene decides to issue a new electronic coin called renecoin.
-  He does so by creating the message \textit{This is 1 renecoin.} and signing it with his private key which belongs to his bitcoinaddress.
-  He wants to give this coin to Alice.
+\textbf{Important!} You should have a clear understanding of the following example as it leads directly to the definition of Bitcoin.
+
+\todo{create pictures to depict the situation.}
+\example{
+  Let us assume we have a very poor version of Bitcoin which we will call renecoin.
+  So Rene decides to issue coins in the hope that people believe they are valueable.
+  If that would happen and Rene has the power to issue more coins at his will he would never have to work again.\footnote{Satoshi Nakamoto actually provided a system in which he did not have the direct ability to issue coins. Anyone could do this from the very beginning right away by participating in the process of Bitcoin mining. This was obviously a smart design decission to not premine coins.}
+  He issues coins by creating the message \textit{This is 1 renecoin.}
+  Since anybody could create such a message rene decides to sign the message with his private key.
+  He wants to give this renecoin to Alice.
   He does this by extending the message.
   \textit{This is 1 renecoin. It is transfered to Alice.}
   Again he computes the signature to this message.
-  Everyone who believes in renecoin can now see and verify that this electronic coin really belongs to alice by checking the Signature.
+  Everyone who believes in renecoin can now see and verify that this electronic coin really belongs to alice by checking the signature with the help of the public key which belongs to rene's private key.
   If Alice wants to transfer the coin to somone else she can extend the message and sign the extended message.
   \textit{This is 1 renecoin. It is transfered to Alice. It is transfered to Bob.}
   This new message is now signed by Alice's key and everyone can verify that Bob is the real owner.
-  We can see that there is a chain of Owners (Rene, Alice and Bob) and a chain of digital Signature (Rene's signature, Alice Signature).
-  The chain of signatures is always one element shorter as the chain of owners.
-  Besides the last entry of the list of owner all other entries have to match exactly.
-  In this way we have created an electronic coin which can only be transfered to another person if the owner can provide a valid signature for the transfer message.}
-
+  We can see that there is a chain of Owners \{1. Rene, 2. Alice, 3. Bob\} and a chain of digital Signature \{1. Rene's signature, 2. Alice's signature\}.
+  The chain of signatures is always one element shorter then the chain of owners.
+  Besides the last entry of the chain of owners all other entries have to match exactly the entries of the chain of signatures.
+  In this way we have created an electronic coin which can only be transfered to another person if the owner can provide a valid signature for the next transfer message.
+\footnote{One can find a video explaining this in more detail at: \url{https://www.youtube.com/watch?v=TrF9RmfyLbw}\todo{create a command for video links}}
+}
 
 In fact if Mallory wanted to steal the coin from Alice before Alice transfered it to Bob this would not work.
-In order to change the owner the message that Rene signed would have to be extended. 
+In order to change the owner the message that Rene signed would have to be extended in the following way: 
 \textit{This is 1 renecoin. It is transfered to Alice. It is transfered to Mallory.}
-However the chain of digital signatures (Rene's signature, Mallory's signature) Does not fit the chain of owners (Rene, Alice, Mallory)
-That is why everyone would know that this message is not valid (even though it has a propper signature) no one would accept the coin from Mallory if she were to transfere it again.
-On the other hand since Alice takes good care of her private key Mallory would not be able to produce a signature from Alice private key.
+This results in a list of potential owners \{1. Rene, 2. Alice, 3. Mallory\}
+But due to the assymetric properties of public and private Keys Mallory will not be able to provide a propper signature for the last transfer message.
+This means that we would have a chain of signatures that looks like this:
+\{1. Rene's signature, 2. Mallory's forged signature\}
+Since noone will accept the forged signature we basically only have a chain with one element. This is just Rene's signature which only authorizes the first transfer to Alice.
 
-While it is tempting to think that we already have created a great form of electronic cash with these two lists of owners and digital signatures it turns out that this form of electronic cash has one severe problem.
+If Mallory signed the Transfer message with her own private key the list of signatures would look like this: \{1. Rene's signature, 2. Mallory's signature\}.
+Noone would accept another transfer message from Mallory because the transfer from Alice to Mallory was never authorized by Alice.
+
+This system obviously requires all participants to keep their private keys secure.
+Anyone familiar with Bitcoin should allready know that.
+If anyone has access to the private keys they can provide a signature to any transfermessage and effectively steal the coins. 
+
+Being able to securly ascribe and transfere ownership of renecoins it is tempting to think that we already have created a secure and useful form of electronic cash.
+However just using the chain of owners and the chain of digital signatures is not sufficient and has a severe problem. 
 
 \problem{What happens if Alice also gives the coin to Charly and not only to Bob?}
-Assume Alice produces a valid signature for the message \textit{This is a renecoin. It is transfered to Alice. It is transfered to Charlie}.
-She will be able to produce such a signature as she knows her private key.
-We would now have a chain of owner (Rene, Alice, Charlie) and a chain of signature (Rene, Alice) as well as another chain of owners (Rene, Alice, Bob) and another chain of signatures (of which alice signature would be looking different than in the first case) (Rene, Alice)
+Assume Alice produces also a valid signature for the message \textit{This is a renecoin. It is transfered to Alice. It is transfered to Charlie}.
+By design of the system she will be able to produce such a signature as she knows her private key.
+We would now have a chain of owner \todo{maybe introduce arrows here!} \{1. Rene, 2. Alice, 3. Charlie\}.
+Additionally there would be a valid chain of digital signatures \{1. Rene's signature, 2. Alice's signature\}
+These two lists would exist together with the orginial lists in which Alice has spent her coins by transfering them to Bob.
+Remember that due to the example \todo{work in reference} the signatures provided by Alice would look differently because the transfer message differed.
+
 In both cases Charlie and Bob can verify that they have been given 1 renecoin from Alice.
 However Rene has only issued one coin.
-Alice could spend this coin even more frequently.
-Thus, our electronic renecoins would never have the chance to be a store of value as the supply can be extended arbitrarily.
+Alice could transfer her coin to even more people.
+Thus, renecoins would never have the chance to be a store of value as the supply can be extended arbitrarily by any participant.
 
 The described process is called the \textbf{double spending problem} \todo{add glossary entry}.
 It can be easily mitigated by using a central authority - for example rene - that signs all transfer messages.
 However that would make it risky for people to use renecoin as everyone would have to trust rene to act honestly.
-Luckily in 2008 Satoshi Nakamoto published his solution to the problem which he called Bitcoin a peer to peer electronic cash system.
-It used a concept called proof of work which was copied from Adam Back's hashcash in order to get rid of the central authority. 
-
-While we explain the proof of work mechanism in the next section we already
-
-
-\todo{probably remove rest of this section}
-We have seen that the desired form of electronic cash would exist as a digital file on everyones computer without a central mint or custodian being involved.
-Besides the previously introduced problem of double spending there are also the questions of ownership and authenticity of electronic coins.
-Note that it is not sufficient to say that you own a coin because the file which stores the information is placed on your computer.
-Assuming that the double spending problem has already been solved we realize that such a file might exist on several computers.
-This shall serve as a counter argument that 
+Luckily in 2008 Satoshi Nakamoto published his solution to the problem which he called \textit{Bitcoin: A Peer-to-Peer Electronic Cash System.}\footnote{\url{https://bitcoin.org/bitcoin.pdf}}
+In order to get rid of a central authority he used a concept called proof of work which was copied from Adam Back's work called:  \textif{Hashcash - A Denial of Service Counter-Measure}\footnote{\url{http://www.hashcash.org/papers/hashcash.pdf}}.
 
 \section{Proof of Work and Blockchain}
+We have seen in the previous section that it is possible to create an electronic cash system in which ownership and validity of coins can be ensured by defining coins as chains of digital signatures.
+Yet the system was not sufficient since there was the chance for participants to double spend the coins.
+As this ability would remove a very fundamental property - namely being a store of value -  from any cash system we have to solve the double spending problem.
+
+\problem{How can we prevent double spending of electronic cash without using a central authority to sign of all transactions?}
+
+\todo{get rid of all the structural ideas and produce some text}
+1. we start by timestamping transactions and publish all transactions to some decentralized storage.
+2. We could assume that at a certain point in time a transaction was successfully done
+--> yields a problem: What if two versions of the transaction exist. Either at the same timestamp or at different time stamps. A previously signed and timestamped transaction would have to be rejected to be spent differently
+(So this is already the block chain)
+and the immutability of the blockchain comes from the proof of work.
+
+\todo{Question: what about the technical level of detail here and notation for lightning network related stuff? Stuff like bitcoin script... two ideas: First do it at the end of chapter one in a section formal definitions. Or do it in an bitcoin appendix.}
+
+
 
 \section{Scalability issues of blockchain technologies}
 \chapter{Lightning Network}
