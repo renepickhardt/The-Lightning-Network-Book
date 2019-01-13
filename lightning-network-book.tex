@@ -12,8 +12,6 @@
 \newglossaryentry{digital signature}{name={digital signature},description={A digital signature is a mathematical scheme for verifying the authenticity of digital messages or documents. A valid digital signature gives a recipient reason to believe that the message was created by a known sender, that the sender cannot deny having sent the message and that the message was not altered in transit. They can be seen as cryptographic commitments in which the message is not hidden.\url{https://en.wikipedia.org/w/index.php?title=Digital_signature&oldid=876680165}}}
 \newglossaryentry{cryptographic commitment}{name={cryptographic commitment}, description={A cryptographic commitment allows one to commit to a chosen value while keeping it hidden to others, with the ability to reveal the committed value later.\url{https://en.wikipedia.org/w/index.php?title=Commitment_scheme&oldid=842802201}}}
 
-
-
 \title{Hacking the Lightning Network - A protocol to scale Bitcoin [Draft]} 
 \author{Rene Pickhardt}
 
@@ -30,7 +28,6 @@ For the attribution you have to link to my homepage \url{https://www.rene-pickha
 Since this is an open source effort, I rely on the support of the community. In order to be able to work full time on this book, I need a budget of 21.21212121 BTC (with current exchange rates).
 
 Donate using Bitcoin via: \url{https://tallyco.in/s/lnbook/} or fiat money at:  \url{https://patreon.com/renepickhardt}
-
 
 \newpage
 \tableofcontents
@@ -206,7 +203,49 @@ While this example is nice in the sense that one can certainly prove ownership o
 Actually the oposite is true. Many people who use Bitcoin want to stay anonymous. 
 However we need to have a mechanism to prove ownership of coins in order for others to be able to check if they actually gain new coins if we claim to transfer them
 
-\todo{make a second example that leads to the definition of electronic cash as a chain of digital signatures.}
+\todo{improve example from wording (basically rewrite it and create pictures to depict the situation.}
+\example{Rene decides to issue a new electronic coin called renecoin.
+  He does so by creating the message \textit{This is 1 renecoin.} and signing it with his private key which belongs to his bitcoinaddress.
+  He wants to give this coin to Alice.
+  He does this by extending the message.
+  \textit{This is 1 renecoin. It is transfered to Alice.}
+  Again he computes the signature to this message.
+  Everyone who believes in renecoin can now see and verify that this electronic coin really belongs to alice by checking the Signature.
+  If Alice wants to transfer the coin to somone else she can extend the message and sign the extended message.
+  \textit{This is 1 renecoin. It is transfered to Alice. It is transfered to Bob.}
+  This new message is now signed by Alice's key and everyone can verify that Bob is the real owner.
+  We can see that there is a chain of Owners (Rene, Alice and Bob) and a chain of digital Signature (Rene's signature, Alice Signature).
+  The chain of signatures is always one element shorter as the chain of owners.
+  Besides the last entry of the list of owner all other entries have to match exactly.
+  In this way we have created an electronic coin which can only be transfered to another person if the owner can provide a valid signature for the transfer message.}
+
+
+In fact if Mallory wanted to steal the coin from Alice before Alice transfered it to Bob this would not work.
+In order to change the owner the message that Rene signed would have to be extended. 
+\textit{This is 1 renecoin. It is transfered to Alice. It is transfered to Mallory.}
+However the chain of digital signatures (Rene's signature, Mallory's signature) Does not fit the chain of owners (Rene, Alice, Mallory)
+That is why everyone would know that this message is not valid (even though it has a propper signature) no one would accept the coin from Mallory if she were to transfere it again.
+On the other hand since Alice takes good care of her private key Mallory would not be able to produce a signature from Alice private key.
+
+While it is tempting to think that we already have created a great form of electronic cash with these two lists of owners and digital signatures it turns out that this form of electronic cash has one severe problem.
+
+\problem{What happens if Alice also gives the coin to Charly and not only to Bob?}
+Assume Alice produces a valid signature for the message \textit{This is a renecoin. It is transfered to Alice. It is transfered to Charlie}.
+She will be able to produce such a signature as she knows her private key.
+We would now have a chain of owner (Rene, Alice, Charlie) and a chain of signature (Rene, Alice) as well as another chain of owners (Rene, Alice, Bob) and another chain of signatures (of which alice signature would be looking different than in the first case) (Rene, Alice)
+In both cases Charlie and Bob can verify that they have been given 1 renecoin from Alice.
+However Rene has only issued one coin.
+Alice could spend this coin even more frequently.
+Thus, our electronic renecoins would never have the chance to be a store of value as the supply can be extended arbitrarily.
+
+The described process is called the \textbf{double spending problem} \todo{add glossary entry}.
+It can be easily mitigated by using a central authority - for example rene - that signs all transfer messages.
+However that would make it risky for people to use renecoin as everyone would have to trust rene to act honestly.
+Luckily in 2008 Satoshi Nakamoto published his solution to the problem which he called Bitcoin a peer to peer electronic cash system.
+It used a concept called proof of work which was copied from Adam Back's hashcash in order to get rid of the central authority. 
+
+While we explain the proof of work mechanism in the next section we already
+
 
 \todo{probably remove rest of this section}
 We have seen that the desired form of electronic cash would exist as a digital file on everyones computer without a central mint or custodian being involved.
