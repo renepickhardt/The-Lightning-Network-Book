@@ -1,4 +1,4 @@
-\documentclass[ebook,12pt,oneside,openany]{memoir}
+\documentclass[a4paper,12pt,oneside,openany]{book}
 \usepackage[utf8x]{inputenc}
 \usepackage[english]{babel}
 \usepackage{url}
@@ -8,11 +8,108 @@
 \usepackage{glossaries}
 \makenoidxglossaries
 
-\newglossaryentry{asymmetric cryptographic system}{name={asymmetric cryptographic system}, description={Asymmetric cryptography, or public-key cryptography is a cryptographic system that uses pairs of keys: public keys which may be disseminated widely, and private keys which are known only to the owner. The generation of such keys depends on cryptographic algorithms based on mathematical problems to produce one-way functions. Effective security only requires keeping the private key private; the public key can be openly distributed without compromising security.\url{https://en.wikipedia.org/w/index.php?title=Public-key_cryptography&oldid=877579180}}}
-\newglossaryentry{digital signature}{name={digital signature},description={A digital signature is a mathematical scheme for verifying the authenticity of digital messages or documents. A valid digital signature gives a recipient reason to believe that the message was created by a known sender, that the sender cannot deny having sent the message and that the message was not altered in transit. They can be seen as cryptographic commitments in which the message is not hidden.\url{https://en.wikipedia.org/w/index.php?title=Digital_signature&oldid=876680165}}}
-\newglossaryentry{easy}{name={computationally easy}, description={A problem is considered to be computationally easy if there exists an alogorithm that is able to compute the solution to the problem rather quickly.\todo{exchange this with a more formal definition? Maybe use polynomial runtime.}}}
-\newglossaryentry{hard}{name={computationally hard}, description={A problem is considered to be computationally hard if no algorithm exists or is known that is able to compute the solution to the problem rather quickly.\todo{exchange this with a more formal definition? Maybe use polynomial runtime.}}}
+\newglossaryentry{asymmetric cryptographic system}{name={Asymmetric Cryptographic System},
+  description={Asymmetric cryptography, or public-key cryptography is a cryptographic system that uses pairs of keys: public keys which may be disseminated widely, and private keys which are known only to the owner. The generation of such keys depends on cryptographic algorithms based on mathematical problems to produce one-way functions. Effective security only requires keeping the private key private; the public key can be openly distributed without compromising security.\url{https://en.wikipedia.org/w/index.php?title=Public-key_cryptography&oldid=877579180}}}
+\newglossaryentry{digital signature}{name={Digital Signature},
+  description={A digital signature is a mathematical scheme for verifying the authenticity of digital messages or documents. A valid digital signature gives a recipient reason to believe that the message was created by a known sender, that the sender cannot deny having sent the message and that the message was not altered in transit. They can be seen as cryptographic commitments in which the message is not hidden.\url{https://en.wikipedia.org/w/index.php?title=Digital_signature&oldid=876680165}}}
+\newglossaryentry{easy}{name={Computationally easy},
+  description={A problem is considered to be computationally easy if there exists an alogorithm that is able to compute the solution to the problem rather quickly.\todo{exchange this with a more formal definition? Maybe use polynomial runtime.}}}
+\newglossaryentry{hard}{name={Computationally hard},
+  description={A problem is considered to be computationally hard if no algorithm exists or is known that is able to compute the solution to the problem rather quickly.\todo{exchange this with a more formal definition? Maybe use polynomial runtime.}}}
 
+%\newglossaryentry{enforcing layer}{name={enforcing layer},description={}}
+\newglossaryentry{blockchain}{name={Blockchain},
+description={}}
+\newglossaryentry{transaction}{name={Transaction},
+  description={}}
+\newglossaryentry{paymenthash}{name={Paymenthash},
+  description={}}
+\newglossaryentry{preimage}{name={Preimage},
+  description={}}
+\newglossaryentry{hashfunction}{name={Hashfunction},
+  description={}}
+\newglossaryentry{gossip protocol}{name={Gossip Protocol},
+  description={}}
+\newglossaryentry{transport layer}{name={Transport Layer},
+  description={}}
+\newglossaryentry{sphinx}{name={SPHINX Mix Format},
+  description={}}
+\newglossaryentry{onion routing}{name={Onion Routing},
+  description={}}
+\newglossaryentry{source based routing}{name={Source Based Routing},
+  description={}}
+\newglossaryentry{relative timelock}{name={Relative Timelock},
+  description={}}
+\newglossaryentry{2htlc}{name={2nd stage HTLC},
+  description={}}
+\newglossaryentry{breach remedy}{name={Breach Remedy Transaction},
+  description={}}
+\newglossaryentry{commitment tx}{name={Commitment Transaction},
+  description={}}
+\newglossaryentry{utxo}{name={Unspent Transaction Output},
+  description={}}
+\newglossaryentry{funding tx}{name={Funding Transaction},
+  description={}}
+\newglossaryentry{segwit}{name={Segregated Witness},
+  description={}}
+\newglossaryentry{malleability}{name={Transaction Malleabillity},
+  description={}}
+\newglossaryentry{P2PKH}{name={Pay to pubkey hash},
+  description={}}
+\newglossaryentry{P2SH}{name={Pay to script hash},
+  description={}}
+\newglossaryentry{invoice}{name={Invoice},
+  description={}}
+\newglossaryentry{BOLT}{name={Basics Of Lightning Technoclogy},
+  description={}}
+\newglossaryentry{revocation key}{name={Revocation Key},
+  description={}}
+\newglossaryentry{payment channel}{name={Payment Channel},
+  description={}}
+\newglossaryentry{penalty tx}{name={Penalty Transaction},
+  description={}}
+\newglossaryentry{lnd}{name={lnd},
+  description={}}
+\newglossaryentry{eclair}{name={Eclair},
+  description={}}
+\newglossaryentry{clightning}{name={c-lightning},
+  description={}}
+\newglossaryentry{shachain}{name={Sha-chain},
+  description={}}
+\newglossaryentry{hdwallet}{name={HD Wallet},
+  description={}}
+\newglossaryentry{bip}{name={BIP},
+  description={}}
+\newglossaryentry{bitcoin}{name={Bitcoin},
+  description={}}
+\newglossaryentry{ecash}{name={Electronic cash},
+  description={}}
+\newglossaryentry{ecdsa}{name={ECDSA},
+  description={}}
+\newglossaryentry{bech32}{name={bech32},
+  description={}}
+\newglossaryentry{encoding}{name={Encoding},
+  description={}}
+\newglossaryentry{mining}{name={Bitcoin Mining},
+  description={}}
+\newglossaryentry{coinbase}{name={Coinbase},
+  description={}}
+\newglossaryentry{input}{name={Input Script},
+  description={}}
+\newglossaryentry{output}{name={Output Script},
+  description={}}
+\newglossaryentry{script}{name={Bitcoin Script},
+  description={}}
+\newglossaryentry{msat}{name={millisatoshi},
+description={}}
+
+
+  \newglossaryentry{rsmc}{name={Revocable Sequence Maturity Contract},
+    description={This \gls{contract} is used to contract a payment channel between two bitcoin users who do not need to trust each other. The name comes from a sequence of states which are encoded as commitment transactions and can be revoked if wrongfully published and mined by the bitcoin netowork.}}
+  \newglossaryentry{htlc}{name={Hashed Time Locked Contract},
+    description={Additional outputputs in the commitment transactions which can be claimed by one node if a secret preimage to a hash is provided within the time lock after the commitment transaction is being mined by the bitcoin network.}}
+  \newglossaryentry{contract}{name={Contract},
+    description={A contract is a set of Bitcoin transactions which result together in a certain desired behaviour. Examples are \gls{rsmc}s to create a trustless, bi-directional payment channel to be built or \gls{htlc}s to create a mechanism to allow trustless forwarding of payments through third parties.}}
 
 \title{Hacking the Lightning Network - A protocol to scale Bitcoin [Draft]} 
 \author{Rene Pickhardt}
@@ -296,7 +393,7 @@ The described process is called the \textbf{double spending problem} \todo{add g
 It can be easily mitigated by using a central authority - for example Rene - that signs all transfer messages.
 However that would make it risky for people to use Renecoin as everyone would have to trust Rene to act honestly.
 Luckily in 2008 Satoshi Nakamoto published his solution to the problem which he called \textit{Bitcoin: A Peer-to-Peer Electronic Cash System.}\footnote{\url{https://bitcoin.org/bitcoin.pdf}}
-In order to get rid of a central authority he used a concept called proof of work, which was based on Adam Back's work called \textif{Hashcash - A Denial of Service Counter-Measure}\footnote{\url{http://www.hashcash.org/papers/hashcash.pdf}}.
+In order to get rid of a central authority he used a concept called proof of work, which was based on Adam Back's work called \textit{Hashcash - A Denial of Service Counter-Measure}\footnote{\url{http://www.hashcash.org/papers/hashcash.pdf}}.
 
 \section{Proof of Work and Blockchain}
 We have seen in the previous section that it is possible to create an electronic cash system in which ownership and validity of coins can be ensured by defining coins as chains of digital signatures.
