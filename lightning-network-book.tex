@@ -9,12 +9,12 @@
 \makenoidxglossaries
 
 \newglossaryentry{asymmetric cryptographic system}{name={Asymmetric Cryptographic System},
-  description={Asymmetric cryptography, or public-key cryptography is a cryptographic system that uses pairs of keys: public keys which may be disseminated widely, and private keys which are known only to the owner. The generation of such keys depends on cryptographic algorithms based on mathematical problems to produce one-way functions. Effective security only requires keeping the private key private; the public key can be openly distributed without compromising security.\url{https://en.wikipedia.org/w/index.php?title=Public-key_cryptography&oldid=877579180}}}
+  description={Asymmetric cryptography, or public-key cryptography, is a cryptographic system that uses pairs of keys: public keys which may be disseminated widely, and private keys which are known only to the owner. The generation of such keys depends on cryptographic algorithms based on mathematical problems to produce one-way functions. Effective security only requires keeping the private key private; the public key can be openly distributed without compromising security.\url{https://en.wikipedia.org/w/index.php?title=Public-key_cryptography&oldid=877579180}}}
 \newglossaryentry{digital signature}{name={Digital Signature},
   description={A digital signature is a mathematical scheme for verifying the authenticity of digital messages or documents. A valid digital signature gives a recipient reason to believe that the message was created by a known sender, that the sender cannot deny having sent the message and that the message was not altered in transit. They can be seen as cryptographic commitments in which the message is not hidden.\url{https://en.wikipedia.org/w/index.php?title=Digital_signature&oldid=876680165}}}
-\newglossaryentry{easy}{name={Computationally easy},
-  description={A problem is considered to be computationally easy if there exists an alogorithm that is able to compute the solution to the problem rather quickly.\todo{exchange this with a more formal definition? Maybe use polynomial runtime.}}}
-\newglossaryentry{hard}{name={Computationally hard},
+\newglossaryentry{easy}{name={Computationally Easy},
+  description={A problem is considered to be computationally easy if there exists an algorithm that is able to compute the solution to the problem rather quickly.\todo{exchange this with a more formal definition? Maybe use polynomial runtime.}}}
+\newglossaryentry{hard}{name={Computationally Hard},
   description={A problem is considered to be computationally hard if no algorithm exists or is known that is able to compute the solution to the problem rather quickly.\todo{exchange this with a more formal definition? Maybe use polynomial runtime.}}}
 
 %\newglossaryentry{enforcing layer}{name={enforcing layer},description={}}
@@ -22,11 +22,11 @@
 description={}}
 \newglossaryentry{transaction}{name={Transaction},
   description={}}
-\newglossaryentry{paymenthash}{name={Paymenthash},
+\newglossaryentry{paymenthash}{name={Payment Hash},
   description={}}
 \newglossaryentry{preimage}{name={Preimage},
   description={}}
-\newglossaryentry{hashfunction}{name={Hashfunction},
+\newglossaryentry{hashfunction}{name={Hash Function},
   description={}}
 \newglossaryentry{gossip protocol}{name={Gossip Protocol},
   description={}}
@@ -36,11 +36,11 @@ description={}}
   description={}}
 \newglossaryentry{onion routing}{name={Onion Routing},
   description={}}
-\newglossaryentry{source based routing}{name={Source Based Routing},
+\newglossaryentry{source based routing}{name={Source-Based Routing},
   description={}}
 \newglossaryentry{relative timelock}{name={Relative Timelock},
   description={}}
-\newglossaryentry{2htlc}{name={2nd stage HTLC},
+\newglossaryentry{2htlc}{name={2nd Stage HTLC},
   description={}}
 \newglossaryentry{breach remedy}{name={Breach Remedy Transaction},
   description={}}
@@ -54,9 +54,9 @@ description={}}
   description={}}
 \newglossaryentry{malleability}{name={Transaction Malleabillity},
   description={}}
-\newglossaryentry{P2PKH}{name={Pay to pubkey hash},
+\newglossaryentry{P2PKH}{name={Pay to Pubkey Hash},
   description={}}
-\newglossaryentry{P2SH}{name={Pay to script hash},
+\newglossaryentry{P2SH}{name={Pay to Script Hash},
   description={}}
 \newglossaryentry{invoice}{name={Invoice},
   description={}}
@@ -82,7 +82,7 @@ description={}}
   description={}}
 \newglossaryentry{bitcoin}{name={Bitcoin},
   description={}}
-\newglossaryentry{ecash}{name={Electronic cash},
+\newglossaryentry{ecash}{name={Electronic Cash},
   description={}}
 \newglossaryentry{ecdsa}{name={ECDSA},
   description={}}
@@ -100,16 +100,16 @@ description={}}
   description={}}
 \newglossaryentry{script}{name={Bitcoin Script},
   description={}}
-\newglossaryentry{msat}{name={millisatoshi},
+\newglossaryentry{msat}{name={Millisatoshi},
 description={}}
 
 
   \newglossaryentry{rsmc}{name={Revocable Sequence Maturity Contract},
-    description={This \gls{contract} is used to contract a payment channel between two bitcoin users who do not need to trust each other. The name comes from a sequence of states which are encoded as commitment transactions and can be revoked if wrongfully published and mined by the bitcoin netowork.}}
+    description={This \gls{contract} is used to construct a payment channel between two Bitcoin users who do not need to trust each other. The name comes from a sequence of states which are encoded as commitment transactions and can be revoked if wrongfully published and mined by the Bitcoin netowork. These contracts are commonly referred to as RSMCs.}}
   \newglossaryentry{htlc}{name={Hashed Time Locked Contract},
-    description={Additional outputputs in the commitment transactions which can be claimed by one node if a secret preimage to a hash is provided within the time lock after the commitment transaction is being mined by the bitcoin network.}}
+    description={Additional output in the commitment transactions, which can be claimed by one node if a secret preimage to a hash is provided within the time lock after the commitment transaction is being mined by the Bitcoin network. These contracts are commonly referred to as HTLCs.}}
   \newglossaryentry{contract}{name={Contract},
-    description={A contract is a set of Bitcoin transactions which result together in a certain desired behaviour. Examples are \gls{rsmc}s to create a trustless, bi-directional payment channel to be built or \gls{htlc}s to create a mechanism to allow trustless forwarding of payments through third parties.}}
+    description={A contract is a set of Bitcoin transactions which result together in a certain desired behaviour. Examples are \gls{rsmc}s to create a trustless, bi-directional payment channel or \gls{htlc}s to create a mechanism which allows trustless forwarding of payments through third parties.}}
 
 \title{Hacking the Lightning Network - A protocol to scale Bitcoin [Draft]} 
 \author{Rene Pickhardt}
