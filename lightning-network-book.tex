@@ -159,7 +159,7 @@ Interestingly in the digital world it becomes significantly harder to fake an el
 
 \problem{How do digital signatures work?}
 A well known method to create digital signatures is by using an \gls{asymmetric cryptographic system}.
-Despite the fact that modern cryptography involves quite advanced mathmatical theory and computer science, I want to encourage you to stick with me in this section.
+Despite the fact that modern cryptography involves quite advanced mathematical theory and computer science, I want to encourage you to stick with me in this section.
 Here we will consider this powerful tool as a blackbox and describe its properties, which should be easy to understand even for people who have trouble with mathematics.
 In the appendix\todo{put in label} we give some mathematical and technical background of elliptic curve cryptography, and explain how and why it actually works to provide secure digital signatures.
 
@@ -188,9 +188,8 @@ This message can only be easily accessed (decrypted) if the private key is known
 \item \textbf{Signatures:} Given a piece of information and a private key one can easily compute a digital signature.
   Any person who has access to the piece of information, the signature and the public key can easily verify that this signature was computed with the private key from that particular piece of information.
   If only a single bit in the information was changed after the signature was computed, the verification can no longer be completed using the public key.
-  As with the first two properties, digital signatures are asymmetric in the sense that it is easy to produce a valid signature for a message if the private key is known, but very hard to forge the signature if only the public key is known.
+  As with the first two properties, digital signatures are asymmetric in the sense that it is easy to produce a valid signature for a message if the private key is known, but almost impossible to forge the signature if only the public key is known.
   It is considered safe to assume that the owner of the private key (and thus also the public key) is indeed the person authorized to have created that message.
-  Due to the asymmetry and the computational hardness, it is almost impossible to forge a digital signature.
 \end{enumerate}
 
 \todo{INCLUDE GRAPHIC showing from private to public is easy and way back is difficult. Also show encryption and signature verifying mechanics}
