@@ -69,7 +69,7 @@
     \url{https://en.wikipedia.org/w/index.php?title=Digital_signature&oldid=876680165}}}
 \newglossaryentry{gossip protocol}{name={Gossip Protocol},
   description={Lightning Network nodes send and recieve information about the \gls{topology} of the Lightning Network through gossip messages which are exchanged with their peers.
-    The gossip protocol is mainly defined in BOLT 7 and defines the format of the node_announcement, channel_announcment and channel_updete messages.
+    The gossip protocol is mainly defined in BOLT 7 and defines the format of the node\_announcement, channel\_announcment and channel\_updete messages.
     In order to prevent SPAM node anouncement messages will only be forwarded if the node already has a channel and channel anounce messages will only be forwarded if the funding transaction of the channel has been confirmed by the bitcoin network.
     Usually Lightning Nodes peer with their channel partners but it is fine to peer with any other Lightning node in order to process gossip messages.}}
 \newglossaryentry{hashfunction}{name={Hash Function},
@@ -140,17 +140,53 @@
 
 \newglossaryentry{transport layer}{name={Transport Layer},
   description={}}
+\newglossaryentry{ephemeral key}{name={Ephemeral Key},
+  description={
+    Ephemeral keys are mainly within the SPHINX Mix Format and Onion Routing on the Lightning Network.
+    They are generated for each execution of the routing process.
+    This increases the security of transported messages or payments.
+    Even if a ephemeral key leakes only information about a single payment become public.
+}}
+\newglossaryentry{diffie hellman}{name={Diffie Hellman Key Exchange},
+  description={
+     On the Lightning Network the Elliptic Curve Diffie-Hellman method is used.
+    It is an anonymous key agreement protocol that allows two parties, each having an elliptic-curve public–private key pair, to establish a shared secret over an insecure channel.
+    This shared secret may be directly used as a key, or to derive another key.
+    The key, or the derived key, can then be used to encrypt subsequent communications using a symmetric-key cipher.
+    An example of the derived key would be the ephemeral key during used by the SPHINX mix format.
+https://en.wikipedia.org/w/index.php?title=Elliptic-curve_Diffie%E2%80%93Hellman&oldid=836070673
+}}
 
 \newglossaryentry{sphinx}{name={SPHINX Mix Format},
-  description={}}
+  description={A particular technique for Onion Routing used in the Lightning Network and invented by George Danezis and Ian Goldberg in 2009.
+    With the SPHINX Mix Format each message of the onion package is padded with some random data so that no single hop can estimate how far on the route they are.
+    While protecting the privacy of the sender and receiver of the network each node is able to return an error message along the path to the originator of the message.\footnote{https://cypherpunks.ca/~iang/pubs/Sphinx_Oakland09.pdf}
+}}
+
 \newglossaryentry{onion routing}{name={Onion Routing},
-  description={}}
+  description={
+    Onion routing is a technique for anonymous communication over a computer network.
+    In an onion network, messages are encapsulated in layers of encryption, analogous to layers of an onion.
+    The encrypted data is transmitted through a series of network nodes called onion routers, each of which peels away a single layer, uncovering the data's next destination.
+    When the final layer is decrypted, the message arrives at its destination.
+    The sender remains anonymous because each intermediary knows only the location of the immediately preceding and following nodes.
+    With the SPHINX Mix Format also the final destination remains anonymous as only the previous router could see it but does not know if this is the final node or just a next hop.
+    https://en.wikipedia.org/w/index.php?title=Onion_routing&oldid=870849217
+}}
+
 \newglossaryentry{relative timelock}{name={Relative Timelock},
   description={}}
 \newglossaryentry{2htlc}{name={2nd Stage HTLC},
   description={}}
 \newglossaryentry{breach remedy}{name={Breach Remedy Transaction},
-  description={}}
+  description={A transaction claiming the outputs of a revocable sequence maturity contract with the help of the recokation key.
+This can only happen if a channel partner was not following the protocol and tried to publish (willingly or due to a software bug) an old channel state.}}
+\newglossaryentry{closing transaction}{name={Closing Transaction},
+  description={If both channel partners agree to close a channel they will create a spent of the Funding Transaction that reflects the most recent Commitment Transaction.
+   It does not include any Hashed Time Lock Contracts or Revocable Sequence Maturity Contracts.
+   After exchanging signatures for a Closing Transaction no further channel updates should be made as this one allow one side to enforce the closing transaction on the blockchain.
+Mutualy closing a channel with the help of a closing transaction has the advantage that less blockchain transactions are required to claim all funds in comparison to unilaterally forcing a channel close by publishing a commitment transaction.
+}}
 \newglossaryentry{commitment tx}{name={Commitment Transaction},
   description={Commitment Transactions encode the balance of the Payment Channel with the help of one output for each channel partner by spending the funding transaction.
     When payments are being made or forwarded through the channel a doublespend of the commitment transactions is made by creating a new pair of commitment transactions.
@@ -180,19 +216,36 @@
 \newglossaryentry{P2SH}{name={Pay to Script Hash},
   description={}}
 \newglossaryentry{invoice}{name={Invoice},
-  description={}}
+  description={The Payment process on the Lightning Network is initiated by the payee who issues an invoice.
+    Invoices include the Payment Hash, The amount, a description and the expiry time.
+    Invoices can also include a fallback bitcoin address to which the payment can be made in case no route can be found as well as hints for routing a payment through a private channel.
+}}
 \newglossaryentry{revocation key}{name={Revocation Key},
-  description={}}
+  description={Each Revokable Sequence Maturity Contract contains two Revocation Keys.
+    Each channel partner knows one Revocation Key.
+    Knowing both Revokation Keys the Output of the Revokable Sequence Maturity Contract can be spent within the predifined Timelock.
+    Revokation Keys are used to disincentivice channel partners from broadcasting an old channel state.
+    While negotiating a new channel State the old revocation keys are being shared.
+    Revocation Keys are used instead of Signatures since they can be derived with an HD key Derivation scheme.
+    This makes it less cumbersome to store all revocation keys of old states.
+}}
 \newglossaryentry{payment channel}{name={Payment Channel},
-  description={}}
+  description={Payment Channels are the core building block of the Lightning Network.
+    They can be used to send a predefined amount of bitcoin back and forth between two parties.
+    Sending Bitcoins over a payment channel happens off chain so only the Funding Transaction of the Payment channel is stored in the blockchain and the settlement with the final balance that spends the Funding Transaction is stored in the blockchain.
+    There are currently three methods known to construct a fully duplex bidirectional payment channel.
+    Christian Decker proposed a method in his PhD thesis based on invalidation trees.
+    Joseph Poon and Tadge Dryja describe the Recocable Sequence Maturity Contract based method that is currently being implemented on the Lightning Network in the Lightning Network Whitepaper.
+Recently Christian Decker. et.al. came up with the Eltoo mechanism which would require a Bitcoin Softfork. }}
 \newglossaryentry{penalty tx}{name={Penalty Transaction},
-  description={}}
+  description={look at breach remedy transaction.}}
 \newglossaryentry{lnd}{name={lnd},
-  description={}}
+  description={Implementation of the Lightning Network Protocol by the San Francisco based company lightninglabs.
+It is written in Go.}}
 \newglossaryentry{eclair}{name={Eclair},
-  description={}}
+  description={Implementation of the Lightning Network Protocol by the Paris based company ACINQ. It is written in Scala.}}
 \newglossaryentry{clightning}{name={c-lightning},
-  description={}}
+  description={Implementation of the Lightning Network Protocol by the Victoria based Blockstream. It is written in C.}}
 \newglossaryentry{shachain}{name={Sha-chain},
   description={}}
 \newglossaryentry{hdwallet}{name={HD Wallet},
