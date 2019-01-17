@@ -16,7 +16,7 @@ Or become a patreon at:  https://patreon.com/renepickhardt
 
 # Contributions
 
-There is a guide for contributers at: https://github.com/the-lightning-network-book/CONTRIBUTING.md
+There is a guide for contributers at: https://github.com/the-lightning-network-book/blob/master/CONTRIBUTING.md
 
 * I will accept pull requests that help with orthography and grammar.
 * I will be particularly happy if you review my work and give feedback via the comment function of GitHub or via pull requests.
