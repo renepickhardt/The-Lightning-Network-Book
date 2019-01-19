@@ -16,8 +16,12 @@ Or become a patreon at:  https://patreon.com/renepickhardt
 
 # Contributions
 
+There is a guide for contributers at: https://github.com/the-lightning-network-book/blob/master/CONTRIBUTING.md
+
 * I will accept pull requests that help with orthography and grammar.
 * I will be particularly happy if you review my work and give feedback via the comment function of GitHub or via pull requests.
+I am also trying to live stream while writing on https://twitch.tv/renepickhardt.
+I encourage you to show up and give feedback while I am writing. 
 
 Before you write substantial parts and make a pull request contact me or expect that I won't merge your pull request. Creating educational content is not so much about collecting a bunch of knowledge but more about presenting it in a concise way.
 Therefore I have to be careful about collaboration. This does not mean that I am not open for collaboration.
