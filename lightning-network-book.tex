@@ -15,43 +15,43 @@
     \url{https://en.wikipedia.org/w/index.php?title=Public-key_cryptography&oldid=877579180}}}
 
 \newglossaryentry{autopilot}{name={Autopilot},
-  description={The autopilot is a recommendation engine for Lightning Network Nodes using statistical measures about the known topology to suggest with which nodes a particular node shoul open a channel.
-    Depending on the implementation of the autopilot also the channel capacity is recommended.
+  description={The autopilot is a recommendation engine for Lightning Network nodes that uses statistics of the known topology to suggest which nodes they should open channels with.
+    Depending on the implementation of the autopilot, the channel capacity may also be recommended.
     Autopilots are not part of the Lightning Network Protocol.
 }}
 \newglossaryentry{balance}{name={Channel Balance},
-  description={The balance of a Payment Channel is encoded by the most recent \gls{commitment transaction}.
-    The Balance states how many Bitcoin belong to each channel partner and how many Bitcoin are in flying\footnote{HTLCs which are currently in the routing process and have not been settled yet.} htlcs.
+  description={The balance of a payment channel is encoded by the most recent \gls{commitment transaction}.
+    The balance states the amount of Bitcoin that belongs to each channel partner and the amount that are in flying\footnote{HTLCs which are currently in the routing process and have not been settled yet.} HTLCs.
     The sum of the balance sheet equals the \gls{capacity}.
     The channel balance is only known by the channel partners.
-    If the channel balance is completly on one side this particular channel partner can not receive any payments through this channel but can only send payements or forward htlcs.
-    We call such a balance outbound capacity.
-    The other channel partner would speek of inbound capacity.
-    Obviously a node should aim the have balanced channel balances.}}
+    If the channel balance is completely on one side of the channel, i.e. one channel partner has all of the Bitcoin in the channel, this particular partner can not receive any payments through this channel. This partner can, however, send payments and forward HTLCs.
+    The balance that a node has on its side of the channel (and is thus able to spend) is called the outbound capacity.
+    The node's channel partner would refer to that balance its inbound capacity, i.e. the amount that it is able to receive.
+    Nodes should aim to have balanced channels with similar inbound and outbound capicities.}}
 \newglossaryentry{mining}{name={Bitcoin Mining},
   description={Bitcoin mining serves two purposes.
-    Firstly Bitcoin Transactions are validated and fixed in the sense that they cannot be doublespent.
-    Secondly new Bitcoins are being created within the coinbase of ech block.\todo{Maybe extend}}}
+    Firstly, Bitcoin transactions are validated and fixed in the sense that they cannot be double-spent.
+    Secondly, new Bitcoins are being created within the coinbase of each block.\todo{Maybe extend}}}
 \newglossaryentry{blockchain}{name={Blockchain},
-  description={The Blockchain is an irreversible distributed database storing all Bitcoin transactions.
-    The irreversibility comes from the fact that each block is only validated by solving a Proof of Work riddle and including the hash of the previous block.
+  description={The blockchain is an irreversible distributed database storing all Bitcoin transactions.
+    The irreversibility comes from the fact that each group of transactions, or block, is validated by solving a Proof of Work riddle and including the hash of the previous block.
     Thus the data can only be changed by an entity providing more than 51\% of the computational power of the Bitcoin network.
-    Blocks are 1 Megabyte in size and storing Bitcoin transactions.
-    New blocks are generated statistically every 10 Minutes.}}
-\newglossaryentry{BOLT}{name={Basics Of Lightning Technoclogy},
+    Blocks currently have a size limit of 1 MB.
+    New blocks have a statistical probability of being produced every ten minutes.}}
+\newglossaryentry{BOLT}{name={Basics Of Lightning Technology},
   description={(aka BOLT).
     The formal specification of the Lightning Network Protocol is called Basics Of Lightning Technology.
     It is located at \url{https://github.com/lightningnetwork/lightning-rfc}.}}
 \newglossaryentry{capacity}{name={Channel Capacity},
-  description={The capacity of a payment channel is equivilent to the amount of bitcoin provided by the funding transaction.
-    As the funding transaction is publicly visible on the blockchain and the channel is announced via the gossip protocol the capacity is a public information.
-    It does not reveal any information about which of the channel partners own how many Bitcoin in the channel.
-    A high capacity does not guarntee that the channel can be used for routing in both directions.\footnote{Acually the capacity does not even change if some of the capacity is locked up in htlcs. This means that even a high capcity channel could be unable to route a payment at a certain amount of time in both directions.}
+  description={The capacity of a payment channel is equivalent to the amount of Bitcoin provided by the funding transaction.
+    As the funding transaction is publicly visible on the blockchain, and the channel is announced via the gossip protocol, the capacity is public information.
+    It does not reveal any information about which of the channel partners own how much Bitcoin in the channel.
+    A high capacity does not guarantee that the channel can be used for routing in both directions.\footnote{Acually the capacity does not even change if some of the capacity is locked up in HTLCs. This means that even a high capacity channel could be unable to route a payment at a certain amount of time in both directions. \todo{It's unclear what this sentence means exactly. - BG}}
     It is not to be confused with the \gls{balance}.}}
 \newglossaryentry{coinbase}{name={Coinbase},
-  description={The first Transaction in each Bitcoin block is allowed to have an empty input script and transfer a certain amount of Bitcoin to some address.
-    The amount is part of the consensus rules and depends on the current block height.
-    Additionally to the newly generated coins the miner is also allowed to add all the fees of the transactions from the current block to the coinbase transaction.}}
+  description={The first transaction in each Bitcoin block is allowed to have an empty input script and transfer a certain amount of Bitcoin to some address.
+    The amount is part of the consensus rules and decreases over time based on the current block height.
+    In addition to the newly generated coins, the miner is also allowed to add all the fees of the transactions from the current block to the coinbase transaction.}}
 \newglossaryentry{easy}{name={Computationally Easy},
   description={A problem is considered to be computationally easy if there exists an algorithm that is able to compute the solution to the problem rather quickly.
     \todo{exchange this with a more formal definition? Maybe use polynomial runtime.}}}
@@ -69,9 +69,9 @@
     \url{https://en.wikipedia.org/w/index.php?title=Digital_signature&oldid=876680165}}}
 \newglossaryentry{gossip protocol}{name={Gossip Protocol},
   description={Lightning Network nodes send and recieve information about the \gls{topology} of the Lightning Network through gossip messages which are exchanged with their peers.
-    The gossip protocol is mainly defined in BOLT 7 and defines the format of the node\_announcement, channel\_announcment and channel\_updete messages.
-    In order to prevent SPAM node anouncement messages will only be forwarded if the node already has a channel and channel anounce messages will only be forwarded if the funding transaction of the channel has been confirmed by the bitcoin network.
-    Usually Lightning Nodes peer with their channel partners but it is fine to peer with any other Lightning node in order to process gossip messages.}}
+    The gossip protocol is mainly defined in BOLT 7 and defines the format of the node\_announcement, channel\_announcement and channel\_update messages.
+    In order to prevent SPAM, node announcement messages will only be forwarded if the node already has a channel and channel announcement messages will only be forwarded if the funding transaction of the channel has been confirmed by the Bitcoin network.
+    Usually Lightning Nodes peer with their channel partners, but it is fine to peer with any other Lightning node in order to process gossip messages. \todo{I'm not familiar with 'peer' being used as a verb in this context (but maybe it's normal in networking?). Could replace with 'connect'. - BG}}}
 \newglossaryentry{hashfunction}{name={Hash Function},
   description={A cryptographic hash function is a mathematical algorithm that maps data of arbitrary size to a bit string of a fixed size (a hash) and is designed to be a one-way function, that is, a function which is infeasible to invert.
     The only way to recreate the input data from an ideal cryptographic hash function's output is to attempt a brute-force search of possible inputs to see if they produce a match, or use a rainbow table of matched hashes.
@@ -83,47 +83,47 @@
 \url{https://en.wikipedia.org/w/index.php?title=Cryptographic_hash_function&oldid=868055371}}}
 
 \newglossaryentry{htlc}{name={Hashed Time Lock Contract},
-    description={Additional output in the commitment transactions, which can be claimed by one node if a secret preimage to a hash is provided within the time lock after the commitment transaction is being mined by the Bitcoin network.
+    description={Additional output in the commitment transactions, which can be claimed by one node if a secret preimage to a hash is provided within the time lock after the commitment transaction has been mined by the Bitcoin network.
       These contracts are commonly referred to as HTLCs.}}
 \newglossaryentry{payment}{name={Payment},
-  description={A Payment occurs if we transfer Bitcoin within the Lightning Network.
+  description={A payment occurs if we transfer Bitcoin within the Lightning Network.
     Payments are generally not seen on the blockchain.
-    The recipient initiates a Payment by creating an invoice.
-    The invoice includes a Payment Hash which is the Hash of a secret preimage.
-    This Payment Hash is used by the Hashed Time Lock Contracts during the routing process.}}
+    The recipient initiates a payment by creating an invoice.
+    The invoice includes a payment Hash which is the hash of a secret preimage.
+    This payment hash is used by the Hashed Time Lock Contracts during the routing process.}}
 \newglossaryentry{preimage}{name={Preimage},
   description={In mathematics given a function $f$ and a value $h$ the preimage of $h$ with respect to $f$ is the set of values $R = \{r_1,r_2,...\}$ such that $f(r_i) = h$ for all $\r_i \in R$.
-    In layment terms it is the set of values which are mapped to $h$ by the function $f$.
-    This preimage set can be empty, finite or infinit.
-    In cryptography the function $f$ is usually taken to be a Hash Function.
+    In layman's terms it is the set of values which are mapped to $h$ by the function $f$.
+    This preimage set can be empty, finite or infinite.
+    In cryptography the function $f$ is usually taken to be a hash function.
     Cryptographers use the term preimage for an arbitrary element of $R$.
-    In pariticular when using SHA-256 we should state that each element has an infinite amount of preimages.
+    In particular when using SHA-256 we should state that each element has an infinite amount of preimages.
     Yet it is still believed to be computationally hard to find such a preimage.}}
 \newglossaryentry{rsmc}{name={Revocable Sequence Maturity Contract},
   description={This \gls{contract} is used to construct a payment channel between two Bitcoin users who do not need to trust each other.
-    The name comes from a sequence of states which are encoded as commitment transactions and can be revoked if wrongfully published and mined by the Bitcoin netowork.
+    The name comes from a sequence of states which are encoded as commitment transactions and can be revoked if wrongfully published and mined by the Bitcoin network.
     These contracts are commonly referred to as RSMCs.}}
 \newglossaryentry{topology}{name={Topology},
-  description={The topology of the Lightning Network describes the shape of shape of the Lightning Network as a mathematical graph.
-    Nodes of the graph are exactly the Lightning Network nodes or participants.
+  description={The topology of the Lightning Network describes the shape of the Lightning Network as a mathematical graph.
+    Nodes of the graph are the Lightning Network nodes or participants.
     Edges of the graph are the payment channels.
     The topology of the Lightning Network is publicly broadcasted with the help of the gossip protocol unless nodes decide to act privately.
     This means that the Lightning Network is probably larger than the announced number of nodes.
-    Knowing the Topology is of particular interest for the \gls{source based routing} process of payments in which the sender discovers a route.
-    Also the topology is important for features like the \gls{autopilot}.
+    Knowing the topology is of particular interest for the \gls{source based routing} process of payments in which the sender discovers a route.
+    Also, the topology is important for features like the \gls{autopilot}.
 }}
 \newglossaryentry{transaction}{name={Transaction},
-  description={Transactions are a binary format used by the Bitcoin protocol to transfer Bitcoins from one address to another one.
-    Several transactions build a block which has to be confirmed by the Bitcoin Network through the process of \gls{mining}.
-    Transactions can only be included to a block if they contain a valid signature defined by the input script or previous owner.
-    The first Transaction in each block is called the \gls{coinbase} and generates new Bitcoins.
-    Transactions can also build a \gls{contract} and shall not be confused with \gls{payments}.}}
+  description={Transactions are a binary format used by the Bitcoin protocol to transfer Bitcoins from one address to another.
+    Several transactions are built into a block which has to be confirmed by the Bitcoin network through the process of \gls{mining}.
+    Transactions can only be included in a block if they contain a valid signature defined by the input script or previous owner.
+    The first transaction in each block is called the \gls{coinbase} and generates new Bitcoins.
+    Transactions can also contain \gls{contract}s and should not be confused with \gls{payments}.}}
 \newglossaryentry{source based routing}{name={Source-Based Routing},
   description={
-    On the Lightning Network a sender of the payment decides the route of the Payment.
-    While this decreases the success rate of the routing process it increases the privacy of payments.
-    Due to the SPHINX Mix Format used by the Onion Routing all routing nodes do not no the originator of a payment and the final recipient.
-    Source based routing is fundamentally different to how routing works on the internet protocol.
+    On the Lightning Network the sender of a payment decides the route of the payment.
+    While this decreases the success rate of the routing process, it increases the privacy of payments.
+    Due to the SPHINX Mix Format used by the Onion Routing, all routing nodes do not know the originator of a payment or the final recipient.
+    Source-based routing is fundamentally different to how routing works on the Internet Protocol.
 }}
 
 \newglossaryentry{node}{name={Lightning Network Node},
@@ -131,10 +131,10 @@
     \todo{generally be more in line with https://github.com/lightningnetwork/lightning-rfc/blob/master/00-introduction.md I completly forgot that there the term peer is also used. I think it is fine to use a broader terminology than the one used in BOLT 00.}
     A participant of the Lightning Network is called a node.
     One becomes a participant by running an implementation of the Lightning Network Protocol such as c-lightning, eclair or lnd.
-    This is similar to bitcoin where full nodes are implementations of the Bitcoin protocol.
-    Funds on a Lightning Network Node are in a hot wallet which is the only way one reasonably use the lightning network.
-    In comparision one can use Bitcoin by installing a Bitcoin Wallet and broadcasting transactions without being a full node.
-    On the Lightning Network this is not be possible without custodial services.
+    This is similar to Bitcoin where full nodes are implementations of the Bitcoin protocol.
+    Funds on a Lightning Network node are in a hot wallet, which is the only way one reasonably uses the Lightning Network.
+    In comparision, one can use Bitcoin by installing a Bitcoin wallet and broadcasting transactions without being a full node.
+    On the Lightning Network this is not currently possible without custodial services.
     \todo{think about it again.}
 }}
 
@@ -145,22 +145,22 @@
     Ephemeral keys are mainly within the SPHINX Mix Format and Onion Routing on the Lightning Network.
     They are generated for each execution of the routing process.
     This increases the security of transported messages or payments.
-    Even if a ephemeral key leakes only information about a single payment become public.
+    Even if an ephemeral key leaks, only information about a single payment becomes public.
 }}
 \newglossaryentry{diffie hellman}{name={Diffie Hellman Key Exchange},
   description={
-     On the Lightning Network the Elliptic Curve Diffie-Hellman method is used.
+     On the Lightning Network, the Elliptic Curve Diffie-Hellman method is used.
     It is an anonymous key agreement protocol that allows two parties, each having an elliptic-curve public–private key pair, to establish a shared secret over an insecure channel.
     This shared secret may be directly used as a key, or to derive another key.
     The key, or the derived key, can then be used to encrypt subsequent communications using a symmetric-key cipher.
-    An example of the derived key would be the ephemeral key during used by the SPHINX mix format.
+    An example of the derived key would be the ephemeral key used by the SPHINX Mix Format.
 https://en.wikipedia.org/w/index.php?title=Elliptic-curve_Diffie%E2%80%93Hellman&oldid=836070673
 }}
 
 \newglossaryentry{sphinx}{name={SPHINX Mix Format},
   description={A particular technique for Onion Routing used in the Lightning Network and invented by George Danezis and Ian Goldberg in 2009.
-    With the SPHINX Mix Format each message of the onion package is padded with some random data so that no single hop can estimate how far on the route they are.
-    While protecting the privacy of the sender and receiver of the network each node is able to return an error message along the path to the originator of the message.\footnote{https://cypherpunks.ca/~iang/pubs/Sphinx_Oakland09.pdf}
+    With the SPHINX Mix Format, each message of the onion package is padded with some random data so that no single hop can estimate how far on the route they are.
+    While the privacy of the sender and receiver of the payment is protected, each node is still able to return an error message along the path to the originator of the message.\footnote{https://cypherpunks.ca/~iang/pubs/Sphinx_Oakland09.pdf}
 }}
 
 \newglossaryentry{onion routing}{name={Onion Routing},
@@ -170,7 +170,7 @@ https://en.wikipedia.org/w/index.php?title=Elliptic-curve_Diffie%E2%80%93Hellman
     The encrypted data is transmitted through a series of network nodes called onion routers, each of which peels away a single layer, uncovering the data's next destination.
     When the final layer is decrypted, the message arrives at its destination.
     The sender remains anonymous because each intermediary knows only the location of the immediately preceding and following nodes.
-    With the SPHINX Mix Format also the final destination remains anonymous as only the previous router could see it but does not know if this is the final node or just a next hop.
+    With the SPHINX Mix Format, the final destination also remains anonymous as only the previous router could see it but does not know if they are routing it to the final node or just the next hop.
     https://en.wikipedia.org/w/index.php?title=Onion_routing&oldid=870849217
 }}
 
