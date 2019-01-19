@@ -179,37 +179,37 @@ https://en.wikipedia.org/w/index.php?title=Elliptic-curve_Diffie%E2%80%93Hellman
 \newglossaryentry{2htlc}{name={2nd Stage HTLC},
   description={}}
 \newglossaryentry{breach remedy}{name={Breach Remedy Transaction},
-  description={A transaction claiming the outputs of a revocable sequence maturity contract with the help of the recokation key.
+  description={A transaction claiming the outputs of a Revocable Sequence Maturity Contract with the help of the revocation key.
 This can only happen if a channel partner was not following the protocol and tried to publish (willingly or due to a software bug) an old channel state.}}
 \newglossaryentry{closing transaction}{name={Closing Transaction},
-  description={If both channel partners agree to close a channel they will create a spent of the Funding Transaction that reflects the most recent Commitment Transaction.
+  description={If both channel partners agree to close a channel they will create a spent of the funding transaction that reflects the most recent commitment transaction.
    It does not include any Hashed Time Lock Contracts or Revocable Sequence Maturity Contracts.
-   After exchanging signatures for a Closing Transaction no further channel updates should be made as this one allow one side to enforce the closing transaction on the blockchain.
-Mutualy closing a channel with the help of a closing transaction has the advantage that less blockchain transactions are required to claim all funds in comparison to unilaterally forcing a channel close by publishing a commitment transaction.
+   After exchanging signatures for a closing transaction no further channel updates should be made, as this one allows one side to enforce the closing transaction on the blockchain.
+Mutually closing a channel with the help of a closing transaction has the advantage that less blockchain transactions are required to claim all funds, in comparison to unilaterally forcing a channel close by publishing a commitment transaction. Additionally, funds are immediately spendable from a closing transaction.
 }}
 \newglossaryentry{commitment tx}{name={Commitment Transaction},
-  description={Commitment Transactions encode the balance of the Payment Channel with the help of one output for each channel partner by spending the funding transaction.
-    When payments are being made or forwarded through the channel a doublespend of the commitment transactions is made by creating a new pair of commitment transactions.
-    One Output also holds a Revocable Sequence maturity contract which is made to deincentivice a channel partner to broadcast an old commitment transaction to the Bitcoin Network.
-    This effectively invalidates old doublespends.
-    Broadcasting a Commitment Transaction forces an unilateral channel close.
-    Up to 438\todo{double check number} Hashed Time Lock Contracts can be stored as additional outputs in the Commitment Transactions allow the routing of Payments.
-    In order to be able to ascribe blame in the case of unilateral channel closes each channel partner has a slightly different Commitment Transaction.\todo{probably don't explain the difference with the RSMC here}
+  description={Commitment Transactions encode the balance of the payment channel with the help of one output for each channel partner by spending the funding transaction.
+    When payments are being made or forwarded through the channel, a double-spend of the commitment transactions is made by creating a new pair of commitment transactions.
+    One output also holds a Revocable Sequence Maturity Contract which is made to disincentivize a channel partner to broadcast an old commitment transaction to the Bitcoin network.
+    This effectively invalidates old commitment transactions.
+    Broadcasting a commitment transaction forces an unilateral channel close.
+    Up to 438\todo{double check number} Hashed Time Lock Contracts can be stored as additional outputs in the commitment transactions allow the routing of payments.
+    In order to be able to ascribe blame in the case of unilateral channel closes, each channel partner has a slightly different commitment transaction.\todo{probably don't explain the difference with the RSMC here}
 }}
 \newglossaryentry{utxo}{name={Unspent Transaction Output},
   description={}}
 \newglossaryentry{funding tx}{name={Funding Transaction},
-  description={The Funding Transaction is used to open a Payment Channel.
-    From the perspective of the bitcoin network the  process of opening a channel by creating a \gls{rsmc} is started by creating the funding transaction and finnished by broadcasting it to the bitcoin network and have it included to the blockchain.
-    The value of the Funding Transaction is exactly the capacity of the payment channel.
-    The output of the Funding Transaction is a 2 out of 2 multisig script where each channel partner controlls one key.
+  description={The funding transaction is used to open a payment channel.
+    From the perspective of the Bitcoin network, the process of opening a channel by creating a \gls{rsmc} is started by creating the funding transaction and finished by broadcasting it to the Bitcoin network and have it included in the blockchain.
+    The value of the funding transaction is exactly the capacity of the payment channel.
+    The output of the funding transaction is a 2-out-of-2 multisignature script (multisig) where each channel partner controls one key.
     It is supposed to be spent by the commitment transactions or by the closing transaction.
-    Due to its multisig nature it can only be spent mutually.
+    Due to its multisig nature, it can only be spent mutually.
     It is part of the \gls{rsmc} to ensure that either side of the channel can withdraw their funds without the necessity to trust the channel partner.
 }}
 \newglossaryentry{segwit}{name={Segregated Witness},
   description={}}
-\newglossaryentry{malleability}{name={Transaction Malleabillity},
+\newglossaryentry{malleability}{name={Transaction Malleability},
   description={}}
 \newglossaryentry{P2PKH}{name={Pay to Pubkey Hash},
   description={}}
@@ -217,30 +217,30 @@ Mutualy closing a channel with the help of a closing transaction has the advanta
   description={}}
 \newglossaryentry{invoice}{name={Invoice},
   description={The Payment process on the Lightning Network is initiated by the payee who issues an invoice.
-    Invoices include the Payment Hash, The amount, a description and the expiry time.
-    Invoices can also include a fallback bitcoin address to which the payment can be made in case no route can be found as well as hints for routing a payment through a private channel.
+    Invoices include the payment hash, The amount, a description and the expiry time.
+    Invoices can also include a fallback Bitcoin address to which the payment can be made in case no route can be found, as well as hints for routing a payment through a private channel.
 }}
 \newglossaryentry{revocation key}{name={Revocation Key},
-  description={Each Revokable Sequence Maturity Contract contains two Revocation Keys.
-    Each channel partner knows one Revocation Key.
-    Knowing both Revokation Keys the Output of the Revokable Sequence Maturity Contract can be spent within the predifined Timelock.
-    Revokation Keys are used to disincentivice channel partners from broadcasting an old channel state.
-    While negotiating a new channel State the old revocation keys are being shared.
-    Revocation Keys are used instead of Signatures since they can be derived with an HD key Derivation scheme.
+  description={Each Revokable Sequence Maturity Contract contains two revocation keys.
+    Each channel partner knows one revocation key.
+    Knowing both revokation keys, the output of the Revocable Sequence Maturity Contract can be spent within the predefined Timelock.
+    Revocation keys are used to disincentivize channel partners from broadcasting an old channel state.
+    While negotiating a new channel state the old revocation keys are being shared.
+    Revocation keys are used instead of signatures since they can be derived with an HD key derivation scheme.
     This makes it less cumbersome to store all revocation keys of old states.
 }}
 \newglossaryentry{payment channel}{name={Payment Channel},
-  description={Payment Channels are the core building block of the Lightning Network.
-    They can be used to send a predefined amount of bitcoin back and forth between two parties.
-    Sending Bitcoins over a payment channel happens off chain so only the Funding Transaction of the Payment channel is stored in the blockchain and the settlement with the final balance that spends the Funding Transaction is stored in the blockchain.
+  description={Payment Channels are the core building blocks of the Lightning Network.
+    They can be used to send a predefined amount of Bitcoin back and forth between two parties.
+    Sending Bitcoins over a payment channel happens off chain, so only the funding transaction and either the commitment or closing transaction are stored in the blockchain.
     There are currently three methods known to construct a fully duplex bidirectional payment channel.
     Christian Decker proposed a method in his PhD thesis based on invalidation trees.
-    Joseph Poon and Tadge Dryja describe the Recocable Sequence Maturity Contract based method that is currently being implemented on the Lightning Network in the Lightning Network Whitepaper.
-Recently Christian Decker. et.al. came up with the Eltoo mechanism which would require a Bitcoin Softfork. }}
+    In the Lightning Network whitepaper, Joseph Poon and Tadge Dryja describe the Revocable Sequence Maturity Contract based method that is currently being implemented on the Lightning Network.
+Recently Christian Decker et al. came up with the Eltoo mechanism which would require a Bitcoin softfork. }}
 \newglossaryentry{penalty tx}{name={Penalty Transaction},
   description={look at breach remedy transaction.}}
 \newglossaryentry{lnd}{name={lnd},
-  description={Implementation of the Lightning Network Protocol by the San Francisco based company lightninglabs.
+  description={Implementation of the Lightning Network Protocol by the San Francisco based company Lightning Labs.
 It is written in Go.}}
 \newglossaryentry{eclair}{name={Eclair},
   description={Implementation of the Lightning Network Protocol by the Paris based company ACINQ. It is written in Scala.}}
