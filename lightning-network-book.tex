@@ -580,13 +580,18 @@ and the immutability of the blockchain comes from the proof of work.
 In the previous chapter we have seen how Bitcoin was invented to create an electronic cash system.
 While Bitcoin has strong poperties it fails to work as a payment system that is able to handle thousands of transactions per second if every Bitcoin transaction is supposed to be stored in the blockchain.
 In this chapter we will introduce the Lightning Network as a solution to the slow blockchain of Bitcoin.
-We will see how it is possible to use a blockchain transaction to open a payment channel between two users.
-A payment channel can be understood as a contract that allows users to exchange Bitcoin without the necessity to store all transactions to the blockchain.
-It utilizes a second Bitcoin transaction that is not broadcasted to the network to encode the current balance of the payment channel.\todo{where to stuff in the word Revocable Sequence Maturity Contract?}
-This balance sheet between two users of the Lightning Network can be updated as often per second as the internet allows the users to exchange small information.
-Only after broadcasting this (updated?) second Transaction to the bitcoin network the payment channel will be closed and the balance is settled.
-Knowing about payment channels we examine Hashed Time Lock Contracts to see how a network of payment channels can be created.
-This network can be used to send a payment between two users that don't have a direct payment channel between them.
+We will see how it is possible to use a single blockchain transaction to open a payment channel between two users.
+A payment channel can be described as a contract that allows users to exchange Bitcoin without having to store all of transactions in the blockchain.
+It utilizes a second Bitcoin transaction that is not broadcast to the network to encode the current balance of the payment channel.\todo{where to stuff in the word Revocable Sequence Maturity Contract?}
+This second off-chain bitcoin transaction contains a cryptographic signature of both parties which proves the state of the balance between the two parties.
+This balance sheet between two users of the Lightning Network can be updated as often per second as the internet allows the users to exchange the very small transaction information for signing the new channel state.
+It's only after broadcasting this (updated?) second Transaction to the bitcoin network that the payment channel will be closed and the balance is settled back onto the blockchain.
+In order for this scheme to work, there are a few attributes of Bitcoin which are needed: 1) immutable transaction hashes, and 2) Hashed Time Lock Contracts (HTLC).
+\todo{Reference HTLC and segwit in previous chapters?  Reference BIPs?}
+The immutable transaction hashes are required to be able to efficiently detect the transmission of the closing transaction, and HTLC is required for... \todo{Summary of HTLC}.
+
+
+This network can also be used to send a payment between two users that don't have a direct payment channel between them.
 \todo{Do we really want to be looking at onion routing and p2p in this chapter or is that not rather a technicality which has to be mentioned in the next chapter anyway?}
 Looking at the concept of onion routing we will see that payments can happen completely privately despite the fact that several actors might have been involved to send funds from one user to another.
 We conclude this overview by pointing out that no central coordination node was needed for such a payment network to exist.
