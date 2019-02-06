@@ -21,17 +21,17 @@
 }}
 \newglossaryentry{balance}{name={Channel Balance},
   description={The balance of a payment channel is encoded by the most recent \gls{commitment transaction}.
-    The balance states the amount of Bitcoin that belongs to each channel partner and the amount that are in flying\footnote{HTLCs which are currently in the routing process and have not been settled yet.} HTLCs.
+    The balance states the amount of bitcoin that belongs to each channel partner and the amount that are in flying\footnote{HTLCs which are currently in the routing process and have not been settled yet.} HTLCs.
     The sum of the balance sheet equals the \gls{capacity}.
     The channel balance is only known by the channel partners.
-    If the channel balance is completely on one side of the channel, i.e. one channel partner has all of the Bitcoin in the channel, this particular partner can not receive any payments through this channel. This partner can, however, send payments and forward HTLCs.
+    If the channel balance is completely on one side of the channel, i.e. one channel partner has all of the bitcoin in the channel, this particular partner can not receive any payments through this channel. This partner can, however, send payments and forward HTLCs.
     The balance that a node has on its side of the channel (and is thus able to spend) is called the outbound capacity.
     The node's channel partner would refer to that balance its inbound capacity, i.e. the amount that it is able to receive.
     Nodes should aim to have balanced channels with similar inbound and outbound capicities.}}
 \newglossaryentry{mining}{name={Bitcoin Mining},
   description={Bitcoin mining serves two purposes.
     Firstly, Bitcoin transactions are validated and fixed in the sense that they cannot be double-spent.
-    Secondly, new Bitcoins are being created within the coinbase of each block.\todo{Maybe extend}}}
+    Secondly, new bitcoins are being created within the coinbase of each block.\todo{Maybe extend}}}
 \newglossaryentry{blockchain}{name={Blockchain},
   description={The blockchain is an irreversible distributed database storing all Bitcoin transactions.
     The irreversibility comes from the fact that each group of transactions, or block, is validated by solving a Proof of Work riddle and including the hash of the previous block.
@@ -43,13 +43,13 @@
     The formal specification of the Lightning Network Protocol is called Basics Of Lightning Technology.
     It is located at \url{https://github.com/lightningnetwork/lightning-rfc}.}}
 \newglossaryentry{capacity}{name={Channel Capacity},
-  description={The capacity of a payment channel is equivalent to the amount of Bitcoin provided by the funding transaction.
+  description={The capacity of a payment channel is equivalent to the amount of bitcoin provided by the funding transaction.
     As the funding transaction is publicly visible on the blockchain, and the channel is announced via the gossip protocol, the capacity is public information.
-    It does not reveal any information about which of the channel partners own how much Bitcoin in the channel.
-    A high capacity does not guarantee that the channel can be used for routing in both directions.\footnote{Acually the capacity does not even change if some of the capacity is locked up in HTLCs. This means that even a high capacity channel could be unable to route a payment at a certain amount of time in both directions. \todo{It's unclear what this sentence means exactly. - BG}}
+    It does not reveal any information about which of the channel partners own how much bitcoin in the channel.
+    A high capacity does not guarantee that the channel can be used for routing in both directions.\footnote{Actually the capacity does not even change if some of the capacity is locked up in HTLCs. This means that even a high capacity channel could be unable to route a payment at a certain amount of time in both directions. \todo{It's unclear what this sentence means exactly. - BG}}
     It is not to be confused with the \gls{balance}.}}
 \newglossaryentry{coinbase}{name={Coinbase},
-  description={The first transaction in each Bitcoin block is allowed to have an empty input script and transfer a certain amount of Bitcoin to some address.
+  description={The first transaction in each Bitcoin block is allowed to have an empty input script and transfer a certain amount of bitcoin to some address.
     The amount is part of the consensus rules and decreases over time based on the current block height.
     In addition to the newly generated coins, the miner is also allowed to add all the fees of the transactions from the current block to the coinbase transaction.}}
 \newglossaryentry{easy}{name={Computationally Easy},
@@ -68,10 +68,10 @@
     They can be seen as cryptographic commitments in which the message is not hidden.
     \url{https://en.wikipedia.org/w/index.php?title=Digital_signature&oldid=876680165}}}
 \newglossaryentry{gossip protocol}{name={Gossip Protocol},
-  description={Lightning Network nodes send and recieve information about the \gls{topology} of the Lightning Network through gossip messages which are exchanged with their peers.
+  description={Lightning Network nodes send and receive information about the \gls{topology} of the Lightning Network through gossip messages which are exchanged with their peers.
     The gossip protocol is mainly defined in BOLT 7 and defines the format of the node\_announcement, channel\_announcement and channel\_update messages.
     In order to prevent SPAM, node announcement messages will only be forwarded if the node already has a channel and channel announcement messages will only be forwarded if the funding transaction of the channel has been confirmed by the Bitcoin network.
-    Usually Lightning Nodes peer with their channel partners, but it is fine to peer with any other Lightning node in order to process gossip messages. \todo{I'm not familiar with 'peer' being used as a verb in this context (but maybe it's normal in networking?). Could replace with 'connect'. - BG}}}
+    Usually Lightning nodes peer with their channel partners, but it is fine to peer with any other Lightning node in order to process gossip messages. \todo{I'm not familiar with 'peer' being used as a verb in this context (but maybe it's normal in networking?). Could replace with 'connect'. - BG}}}
 \newglossaryentry{hashfunction}{name={Hash Function},
   description={A cryptographic hash function is a mathematical algorithm that maps data of arbitrary size to a bit string of a fixed size (a hash) and is designed to be a one-way function, that is, a function which is infeasible to invert.
     The only way to recreate the input data from an ideal cryptographic hash function's output is to attempt a brute-force search of possible inputs to see if they produce a match, or use a rainbow table of matched hashes.
@@ -86,7 +86,7 @@
     description={Additional output in the commitment transactions, which can be claimed by one node if a secret preimage to a hash is provided within the time lock after the commitment transaction has been mined by the Bitcoin network.
       These contracts are commonly referred to as HTLCs.}}
 \newglossaryentry{payment}{name={Payment},
-  description={A payment occurs if we transfer Bitcoin within the Lightning Network.
+  description={A payment occurs if we transfer bitcoin within the Lightning Network.
     Payments are generally not seen on the blockchain.
     The recipient initiates a payment by creating an invoice.
     The invoice includes a payment Hash which is the hash of a secret preimage.
@@ -113,10 +113,10 @@
     Also, the topology is important for features like the \gls{autopilot}.
 }}
 \newglossaryentry{transaction}{name={Transaction},
-  description={Transactions are a binary format used by the Bitcoin protocol to transfer Bitcoins from one address to another.
+  description={Transactions are a binary format used by the Bitcoin protocol to transfer bitcoins from one address to another.
     Several transactions are built into a block which has to be confirmed by the Bitcoin network through the process of \gls{mining}.
     Transactions can only be included in a block if they contain a valid signature defined by the input script or previous owner.
-    The first transaction in each block is called the \gls{coinbase} and generates new Bitcoins.
+    The first transaction in each block is called the \gls{coinbase} and generates new bitcoins.
     Transactions can also contain \gls{contract}s and should not be confused with \gls{payments}.}}
 \newglossaryentry{source based routing}{name={Source-Based Routing},
   description={
@@ -128,12 +128,12 @@
 
 \newglossaryentry{node}{name={Lightning Network Node},
   description={
-    \todo{generally be more in line with https://github.com/lightningnetwork/lightning-rfc/blob/master/00-introduction.md I completly forgot that there the term peer is also used. I think it is fine to use a broader terminology than the one used in BOLT 00.}
+    \todo{generally be more in line with https://github.com/lightningnetwork/lightning-rfc/blob/master/00-introduction.md I completely forgot that there the term peer is also used. I think it is fine to use a broader terminology than the one used in BOLT 00.}
     A participant of the Lightning Network is called a node.
     One becomes a participant by running an implementation of the Lightning Network Protocol such as c-lightning, eclair or lnd.
     This is similar to Bitcoin where full nodes are implementations of the Bitcoin protocol.
     Funds on a Lightning Network node are in a hot wallet, which is the only way one reasonably uses the Lightning Network.
-    In comparision, one can use Bitcoin by installing a Bitcoin wallet and broadcasting transactions without being a full node.
+    In comparison, one can use Bitcoin by installing a Bitcoin wallet and broadcasting transactions without being a full node.
     On the Lightning Network this is not currently possible without custodial services.
     \todo{think about it again.}
 }}
@@ -192,7 +192,7 @@ Mutually closing a channel with the help of a closing transaction has the advant
     When payments are being made or forwarded through the channel, a double-spend of the commitment transactions is made by creating a new pair of commitment transactions.
     One output also holds a Revocable Sequence Maturity Contract which is made to disincentivize a channel partner to broadcast an old commitment transaction to the Bitcoin network.
     This effectively invalidates old commitment transactions.
-    Broadcasting a commitment transaction forces an unilateral channel close.
+    Broadcasting a commitment transaction forces a unilateral channel close.
     Up to 438\todo{double check number} Hashed Time Lock Contracts can be stored as additional outputs in the commitment transactions allow the routing of payments.
     In order to be able to ascribe blame in the case of unilateral channel closes, each channel partner has a slightly different commitment transaction.\todo{probably don't explain the difference with the RSMC here}
 }}
@@ -221,9 +221,9 @@ Mutually closing a channel with the help of a closing transaction has the advant
     Invoices can also include a fallback Bitcoin address to which the payment can be made in case no route can be found, as well as hints for routing a payment through a private channel.
 }}
 \newglossaryentry{revocation key}{name={Revocation Key},
-  description={Each Revokable Sequence Maturity Contract contains two revocation keys.
+  description={Each Revocable Sequence Maturity Contract contains two revocation keys.
     Each channel partner knows one revocation key.
-    Knowing both revokation keys, the output of the Revocable Sequence Maturity Contract can be spent within the predefined Timelock.
+    Knowing both revocation keys, the output of the Revocable Sequence Maturity Contract can be spent within the predefined Timelock.
     Revocation keys are used to disincentivize channel partners from broadcasting an old channel state.
     While negotiating a new channel state the old revocation keys are being shared.
     Revocation keys are used instead of signatures since they can be derived with an HD key derivation scheme.
@@ -231,8 +231,8 @@ Mutually closing a channel with the help of a closing transaction has the advant
 }}
 \newglossaryentry{payment channel}{name={Payment Channel},
   description={Payment Channels are the core building blocks of the Lightning Network.
-    They can be used to send a predefined amount of Bitcoin back and forth between two parties.
-    Sending Bitcoins over a payment channel happens off chain, so only the funding transaction and either the commitment or closing transaction are stored in the blockchain.
+    They can be used to send a predefined amount of bitcoin back and forth between two parties.
+    Sending bitcoins over a payment channel happens off chain, so only the funding transaction and either the commitment or closing transaction are stored in the blockchain.
     There are currently three methods known to construct a fully duplex bidirectional payment channel.
     Christian Decker proposed a method in his PhD thesis based on invalidation trees.
     In the Lightning Network whitepaper, Joseph Poon and Tadge Dryja describe the Revocable Sequence Maturity Contract based method that is currently being implemented on the Lightning Network.
@@ -282,7 +282,7 @@ description={}}
 \newpage
 This book is open source and licensed under the \textit{Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International} license. You may find a copy of the license in the git repository of this book\footnote{\url{https://github.com/renepickhardt/the-lightning-network-book/LICENCE}} or on the homepage of Creative Commons.\footnote{\url{https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode}}
 
-For the attribution you have to link to my homepage \url{https://www.rene-pickhardt.de}, my youtube channel: \url{https://www.youtube.com/user/RenePickhardt} and the git repository of this book at: \url{https://github.com/renepickhardt/the-lightning-network-book}. Obviously, you have to state my name Rene Pickhardt as the author.
+For the attribution you have to link to my homepage \url{https://www.rene-pickhardt.de}, my YouTube channel: \url{https://www.youtube.com/user/RenePickhardt} and the git repository of this book at: \url{https://github.com/renepickhardt/the-lightning-network-book}. Obviously, you have to state my name Rene Pickhardt as the author.
 
 \textbf{Consider financially supporting my book writing effort!}
 
@@ -312,19 +312,20 @@ This book is a guide to understanding the Lightning Network as a technology to s
 It will first introduce the basic concepts of the Bitcoin protocol.
 We will only make use of applied cryptography on a high level without the mathematical details.
 Therefore basically no cryptographic knowledge is needed to be able to follow through this book.
-For the sake of completeness some of the cryptographic details will be stated in the appendix.
+For the sake of completeness, some of the cryptographic details will be stated in the appendix.
 Thus the Bitcoin section should be understandable by any computer science (or similar) undergraduate student.
-As the Lightning Network is built on top of Bitcoin the rest of the book should be easily understandable by the same audience.
+As the Lightning Network is built on top of Bitcoin, the rest of the book should be easily understandable by the same audience.
 We conclude the first chapter by looking at some fundamental issues with Bitcoin as a payment system and explain the necessity for the Lightning Network.
 
 We continue by explaining the theory and construction of the Lightning Network.
 We will understand how to construct payment channels via Revocable Sequence Maturity Contracts and how to solve the routing issues via Hashed Time Lock Contracts.
-These two forms of smart contracts allow for the Blockchain to be transformed from a transaction layer for payments to an enforcing layer of those contracts.
+These two forms of smart contracts allow the Blockchain to be transformed from a transaction layer for payments to an enforcing layer of those contracts.
 Similar to the real world, most contracts will never have to be enforced via a court ruling but are negotiated bilaterally between consenting parties.
-In the same sense, we will understand that the Lightning Network reduces the load of the Bitcoin Network significantly by transforming it to be a contract enforcing layer instead of a value transaction layer.
+
+In the same sense, we will understand that the Lightning Network reduces the load of the Bitcoin network significantly by transforming it to be a contract enforcing layer instead of a value transaction layer.
 
 After we understand the core contracts that enable the Lightning Network, we will look at the technologies to define a properly working protocol.
-We will study the transport layer with its Sphinx mix format and Onion routing first and move on to the gossip protocol which enables the creation of a peer to peer network.
+We will study the transport layer with its Sphinx mix format and Onion routing first and move on to the gossip protocol which enables the creation of a peer-to-peer network.
 
 After we understand the technical foundations of the Lightning Network, a practical guide is given.
 We look at the current wallets, implementations and tools for developers.
@@ -332,38 +333,37 @@ We create some small Lightning Network applications to demonstrate how easy it b
 
 Finally, we look at some of the more advanced topics of the Lightning Network.
 These are mainly relevant for researchers and developers who want to improve the protocol.
-We decided to include these topics because it seems plausible that users of the Lightning Network gain a clear picture of current trends and potential future enhancements. 
+We decided to include these topics because it seems plausible that users of the Lightning Network want to gain a clear picture of current trends and potential future enhancements. 
 
-One core principle of this book is that we introduce new concepts by formulating problem statements first. We will then try to understand why these problems existed and how the technologies in this book will be able to solve those problems. In many cases, we will derive more specific problems which we will tackle in a similar fashion.
+One core principle of this book is that we introduce new concepts by formulating problem statements first. We will then try to understand why these problems existed and how the technologies in this book will be able to solve them. In many cases, we will derive more specific problems which we will tackle in a similar fashion.
 
 \chapter{Bitcoin}
 \section{Introduction to Electronic Cash}
 \problem{How can we create a digital form of cash?}
-With the invention of the micro controller which lead to the development of computers, the Internet and smart phones, we have seen that many things that existed physically now exist in a digital version too.
+With the invention of the micro controller which lead to the development of computers, the Internet and smart phones, we have seen many things that existed physically now exist in a digital version too.
 Examples could be:
 \begin{itemize}
-\item Photographs, video recordings and music tapes.
-\item Books, newspapers and other print publications.
-\item Postal services for sending mail.
-\item Archives and libraries.
+\item Photographs, video recordings and music tapes
+\item Books, newspapers and other print publications
+\item Postal services for sending mail
+\item Archives and libraries
 \end{itemize}
 
 Also, a lot of communication has become digitized with services like email or instant messaging.
 It seems that a huge reason for society to adopt a technological breakthrough is that in many cases digital goods are more convenient than their physical counterparts.
-Take paper publications as an example: While it might be very convenient to carry around one book, it is hardly practical to carry around your entire library.
+Take paper publications as an example: While it might be very convenient to carry around one book, it is impractical to carry around your entire library.
 With modern electronic readers, it is possible to access the world's most extensive collection of textbooks on a single device.
 One can even easily store the entire Wikipedia --- which as an encyclopedia is larger than any other encyclopedia that has previously existed --- on a small nano SD card.
 Remember such an SD card is smaller than your thumbnail.
 
 With regard to cash, we can see a similar trend.
 Due to its scarcity gold served as one of the first universally accepted materials to serve as a currency.
-However, using gold was not very practical as it is a heavy material and cannot be split easily.
-Physical coins and bills (which in the beginning were backed by gold) emerged.
-This form of cash is still used in all major countries of the world.\footnote{although currency nowadays is no longer backed by gold.}
-Similarly to carrying around a single book, it might be highly convenient to carry around a 20 Euro\footnote{or whatever local currency you prefer} bill in order to buy some groceries. However we hardly see people carrying around 1000 times as much in order to buy a car or even more bills to buy a house.
+However, using gold was not very practical as it is a heavy material and cannot be easily split.
+Physical coins and bills (which were initially backed by gold) emerged.
+This form of cash is still used in all major countries of the world.
+Similarly to carrying around a single book, it might be highly convenient to carry around a 20 Euro\footnote{or whatever local currency you prefer} bill in order to buy some groceries. However, we hardly see people carrying around 1000 times as much in order to buy a car or even more bills to buy a house.
 Physical money in large quantities seems to be too cumbersome. 
-The traditional banking sector and financial industry have come up with solutions like wire transfer or cheques.
-Also, we can observe the emergence of online banking, credit cards and online money transfer services.
+The traditional banking sector and financial industry have come up with solutions like checks, wire transfer, credit cards and more recently online banking.
 From a perspective of convenience, these services can be seen as a digital form of cash and are similarly convenient for the user like a digital book.
 
 However, we should state that while the digital solutions which the financial industry provided might be convenient, they cannot --- in fact, they must not --- be seen as a real form of cash.
@@ -373,25 +373,24 @@ The digital alternatives, however, only exist virtually on some computer.
 From a technical point of view they are just entries in a third party's database.
 Thus, they are based on trusting this third party.
 If your digital cash service provider decides to deny you access to your funds or run away with your money, there is basically nothing you can do.\footnote{Of course in most jurisdictions there is the legal system preventing them from stealing your money.}
-Such a scenario can easily happen as we have seen with the bankruptcy of the famous bank Lehman Brothers in the summer of 2008. Many people that trusted their cash to this bank lost a fortune.
-While we have to be fair and attest that it was certainly not the fault of their digital and virtual cash systems that they filed for bankruptcy, we see that trusting a bank to have a digital form of cash removes the most important property of cash.
-The fact that you (and only you) will own it.
-But the reason banks existed was not only to be a provider of a digital form of cash.
-They already existed before the digital age because people did not want to carry around vast amounts of money.
+Such a scenario can easily happen as we have seen with the bankruptcy of the famous Lehman Brothers bank in the summer of 2008. Many people that trusted their cash to this bank lost a fortune.
+While we have to be fair and attest that it was certainly not the fault of their digital and virtual cash systems that they filed for bankruptcy.
+We see that trusting a bank to have a digital form of cash removes the most important property of cash: the fact that you (and only you) will own it.
 
-So the question remains: Can there be a better form of digital cash in comparison to the solution provided by the traditional banking industry? 
+So the question remains: Can there be a better form of digital cash compared to the solution provided by the traditional banking industry? 
 
-Similarly to our example of e-books and physical cash (which we carry around with us) this form of digital or electronic cash should be stored on the digital device of the user.
+Similarly to our example of e-books and physical cash (which we carry around with us), perhaps this form of digital or electronic cash could be stored on the digital device of the user?
+
 Thus, it becomes just a piece of information.
 In this way the user is not dependent on a trusted third party.\footnote{Of course as Bitcoin and Lightning Network developers we should be aware of the fact that we still trust the hardware producers, the software of our operating system and the consensus mechanisms of the network and protocol.}
 
 However, computers and digital services seem to have a fundamental property that might make them useless for electronic cash systems.
-Information can easily be duplicated by copy and pasting.
-We remember that gold was used as one of the first mediums of exchange since it could not be duplicated.
+Information can easily be duplicated by copying and pasting.
+We remember that gold was used as one of the first mediums of exchange since it could not be easily produced.
 
-To emphasize this issue again: A physical bill is actually transferred when making a payment. In contrast when spending a digital coin --- as a piece of information --- it can just be copied and duplicated.
-The recipient has no chance of knowing that the sender actually deleted the coin.
-If the sender did not delete the coin, the sender would be able to spend the coin again by copying the information to another person.
+To emphasize this issue again: A physical bill is actually transferred when making a payment. In contrast, when spending a digital coin --- as a piece of information --- it could just be copied and duplicated.
+The recipient would have no chance of knowing that the sender actually deleted their original coin.
+If the sender did not delete the first coin, the sender would be able to spend the coin again by copying the information to another person.
 This process is called double spending.
 Obviously, double spending sabotages the property that cash should act as a store of value. When the supply is infinite, a single coin becomes worthless. 
 
@@ -400,9 +399,11 @@ We can conclude that electronic cash is only useful if we solve the problem of d
 One obvious solution is a central authority or custodian who knows who owns which coins, and allows cash transactions only if the sender has enough cash.
 While this solution works and is already implemented by traditional banks, it does not solve our desire that we carry around our electronic coins in our devices and --- even worse --- we still need to trust third-party services with all the risks that we have experienced with the collapse of Lehman Brothers.
 
-Luckily in late 2008 a person or group under the pseudonym Satoshi Nakamoto published the Bitcoin paper.
+
+Luckily in late 2008 a person or group under the pseudonym Satoshi Nakamoto published the Bitcoin whitepaper.
 This major technological breakthrough showed the world how it would be possible to create a decentralized form of electronic cash.
 in which every participant stores access to their own funds and copying those coins does not mean duplicating them (as only one copy can be spent).
+
 
 \subsection{Electronic coins as chains of digital signatures}
 \problem{How do you claim ownership and authenticity of a digital good or a piece of information?}
@@ -425,15 +426,15 @@ In the appendix\todo{put in label} we give some mathematical and technical backg
 An asymmetric cryptographic system consists of a large set of pairs of keys.
 The keys of each pair are called the \textbf{private} and the \textbf{public key} by convention.
 From a computer science perspective each key is just a piece of information encoded as a bitstring, or from a mathematical perspective each key is just a number.
-Due to some amazing mathmatical properties these keys turn out to be extremely useful and have a (surprisingly?) asymmetric relation to each other.
+Due to some amazing mathematical properties these keys turn out to be extremely useful and have a (surprisingly?) asymmetric relation to each other.
 Hence the name asymmetric cryptographic system.
 
 Assuming we take an arbitrary key pair from the asymmetric cryptographic system this pair will have three important properties.
-The third property might seem rather abstract and useless at first but it is the property which leads to electronic cash and and cryptographic currencies. \footnote{While there is a little bit more cryptographic theory involved in creating cryptographic currencies this one is probably the most important building block.}
+The third property might seem rather abstract and useless at first but it is the property which leads to electronic cash and cryptographic currencies. \footnote{While there is a little bit more cryptographic theory involved in creating cryptographic currencies this one is probably the most important building block.}
 The three properties are as follows:
 \begin{enumerate}
 \item \textbf{Asymmetry:} We can easily compute the public key from a private key.
-However the other way around is extremly hard to compute.
+However the other way around is extremely hard to compute.
 In this context \textbf{\gls{easy}} means that there is a well known algorithm and method to do this computation and that the computation also takes very little time.
 In contrast, \textbf{\gls{hard}} means that there might be a well known algorithm\footnote{For example, brute forcing by systematically trying all values for a private key and computing the corresponding public key, then checking if it is the public key that we started with} to compute the solution.
 But even in that case it would not be feasible\footnote{actually it would be more accurate to say that it is highly  unlikely} to compute the solution with one computer or even a cluster of computers within a reasonable time interval.
@@ -486,7 +487,7 @@ Since only people with the private key can access the original message we can sa
   This is a strong indicator to the validity of the message together with the signature and the public key.
   If we use the private key for a different Bitcoin address --- for example {1CWtSk58d3rN1R3oGwMobJ6Ets9E2gvPj5} --- we can produce the signatures \todo{enter} for the first and \todo{enter} for the second message. The signatures again look very different since they now belong to a different public and private key pair.
   Still, with the second Bitcoin address anyone can verify them.
-This shows that digital signatures also provide a means of ownership besides the previously seen poperty of proving the authenticity of a message.
+This shows that digital signatures also provide a means of ownership besides the previously seen property of proving the authenticity of a message.
 }
 
 While this example is nice in the sense that one can certainly prove ownership of a Bitcoin address in most cases, one doesn't want to prove that ownership explicitly.
@@ -501,7 +502,7 @@ It will make use of digital signatures to define coins and the process of transf
 \example{
   Let us assume we have a very poor version of Bitcoin which we will call Renecoin.
   So Rene decides to issue coins in hopes that people believe they are valuable.
-  If that would happen and Rene has the power to issue more coins at his will he would never have to work again.\footnote{Satoshi Nakamoto actually provided a system in which he did not have the direct ability to issue coins. Anyone could do this from the very beginning by participating in the process of Bitcoin mining. This was obviously a smart design decision to not premine coins.}
+  If that would happen and Rene has the power to issue more coins at his will he would never have to work again.\footnote{Satoshi Nakamoto actually provided a system in which he did not have the direct ability to issue coins. Anyone could do this from the very beginning by participating in the process of bitcoin mining. This was obviously a smart design decision to not premine coins.}
   He issues coins by creating the message \textit{This is 1 Renecoin.}
   Since anybody could create such a message Rene decides to sign the message with his private key.
   He wants to give this Renecoin to Alice.
@@ -513,7 +514,7 @@ It will make use of digital signatures to define coins and the process of transf
   \textit{This is 1 Renecoin. It is transferred to Alice. It is transferred to Bob.}
   This new message is now signed by Alice's private key and everyone can verify that Bob is the real owner.
   We can see that there is a chain of owners \{1. Rene, 2. Alice, 3. Bob\} and a chain of digital signatures \{1. Rene's signature, 2. Alice's signature\}.
-  The chain of signatures is always one element shorter then the chain of owners.
+  The chain of signatures is always one element shorter than the chain of owners.
   Besides the last entry of the chain of owners, all other entries have to match exactly the entries of the chain of signatures.
   In this way we have created an electronic coin which can only be transferred to another person if the owner can provide a valid signature for the next transfer message.
 \footnote{One can find a video explaining this in more detail at: \url{https://www.youtube.com/watch?v=TrF9RmfyLbw}\todo{create a command for video links}}
@@ -523,7 +524,7 @@ In fact if Mallory wanted to steal the coin from Alice before Alice transferred 
 In order to change the owner, the message that Rene signed would have to be extended in the following way: 
 \textit{This is 1 Renecoin. It is transferred to Alice. It is transferred to Mallory.}
 This results in a list of potential owners \{1. Rene, 2. Alice, 3. Mallory\}
-But due to the assymetric properties of public and private Keys, Mallory will not be able to provide a proper signature for the last transfer message.
+But due to the asymmetric properties of public and private Keys, Mallory will not be able to provide a proper signature for the last transfer message.
 This means that we would have a chain of signatures that looks like this:
 \{1. Rene's signature, 2. Mallory's forged signature\}
 Since no one will accept the forged signature, we basically only have a chain with one element. This is just Rene's signature which only authorizes the first transfer to Alice.
@@ -543,7 +544,7 @@ Earlier we saw Alice transferred her Renecoin to Bob. Now assume that Alice also
 By design of the system, she will be able to produce such a signature as she knows her private key.
 We would now have a chain of owners \todo{maybe introduce arrows here!} \{1. Rene, 2. Alice, 3. Charlie\}.
 Additionally, there would be a valid chain of digital signatures \{1. Rene's signature, 2. Alice's signature\}.
-These two lists would exist together with the orginial lists in which Alice has spent her coins by transferring them to Bob.
+These two lists would exist together with the original lists in which Alice has spent her coins by transferring them to Bob.
 Remember that in the example \todo{work in reference} the signatures provided by Alice would look differently because the transfer message differed.
 
 In both cases Charlie and Bob can verify that they have been given 1 Renecoin from Alice.
@@ -571,7 +572,7 @@ As this ability would remove a very fundamental property --- namely being a stor
 (So this is already the block chain)
 and the immutability of the blockchain comes from the proof of work.
 
-\todo{Question: what about the technical level of detail here and notation for lightning network related stuff? Stuff like bitcoin script... two ideas: First do it at the end of chapter one in a section formal definitions. Or do it in an bitcoin appendix.}
+\todo{Question: what about the technical level of detail here and notation for Lightning Network related stuff? Stuff like Bitcoin script... two ideas: First do it at the end of chapter one in a section formal definitions. Or do it in a Bitcoin appendix.}
 
 
 
@@ -580,6 +581,7 @@ and the immutability of the blockchain comes from the proof of work.
 In the previous chapter we have seen how Bitcoin was invented to create an electronic cash system.
 While Bitcoin has strong poperties it fails to work as a payment system that is able to handle thousands of transactions per second if every Bitcoin transaction is supposed to be stored in the blockchain.
 In this chapter we will introduce the Lightning Network as a solution to the slow blockchain of Bitcoin.
+
 We will see how it is possible to use a single blockchain transaction to open a payment channel between two users.
 A payment channel can be described as a contract that allows users to exchange Bitcoin without having to store all of transactions in the blockchain.
 It utilizes a second Bitcoin transaction that is not broadcast to the network to encode the current balance of the payment channel.\todo{where to stuff in the word Revocable Sequence Maturity Contract?}
@@ -592,6 +594,7 @@ The immutable transaction hashes are required to be able to efficiently detect t
 
 
 This network can also be used to send a payment between two users that don't have a direct payment channel between them.
+
 \todo{Do we really want to be looking at onion routing and p2p in this chapter or is that not rather a technicality which has to be mentioned in the next chapter anyway?}
 Looking at the concept of onion routing we will see that payments can happen completely privately despite the fact that several actors might have been involved to send funds from one user to another.
 We conclude this overview by pointing out that no central coordination node was needed for such a payment network to exist.
@@ -605,28 +608,28 @@ Even for the reader with a technical background we do not recommend to skip this
 
 
 \problem{How can we reduce the load of the blockchain?}
-* several possible technical answers like which doe not involve lightning but will only produce deltas. e.g. better cryptography might lead to smaller signatures and thus save space.
+* several possible technical answers like which does not involve Lightning but will only produce deltas. e.g. better cryptography might lead to smaller signatures and thus save space.
 * Come up with the idea that payments between two people would be possible if we had a payment channel.
 
-\problem{How to send bitcoin between two parties without involving the bitcoin network?}
+\problem{How to send bitcoin between two parties without involving the Bitcoin network?}
 % introduce the idea of a 2-2 multisig wallet but introduce the game theory of a person not being able to act without the other one
 
 \problem{How can we construct a trustless payment channel?}
 Introduce commitment transactions as balance sheets.
-Maybe do this even without explaining transaction malleability. That was before lightning and we do not have the problem nowerdays.
+Maybe do this even without explaining transaction malleability. That was before Lightning and we do not have the problem nowadays.
 
 \problem{How do we make sure old state is deleted?}
 This would be one approach to introduce payment channels.
 
 \problem{How can we ensure that nodes don't need to store all old state in order invalidate old commitment transactions?}
-Introduce HD Wallets and Key derrivation schemes of Revocation keys.
+Introduce HD Wallets and Key derivation schemes of Revocation keys.
 \todo{Question: is that already too technical? }
 
-\section{Enabeling Routing via Hashed Time Lock Contracts}
-\problem{Can Bitcoin be send over several payment channels in a way so that no intermediate node can keep the funds for itself?}
+\section{Enabling Routing via Hashed Time Lock Contracts}
+\problem{Can bitcoin be sent over several payment channels in a way so that no intermediate node can keep the funds for itself?}
 Introduce Hashed Time Lock Contracts.
 
-\problem{how can the transaction be hidden from the participants of the lightning network?}
+\problem{How can the transaction be hidden from the participants of the Lightning Network?}
 Explain the core idea of onion routing.
 
 \problem{How do nodes interact without central authority?}
@@ -635,10 +638,10 @@ Introduce the peer to peer and gossip protocol.
 \section{Basic properties of the Lightning Network}
 \todo{reformulate this and move away from the you-form.}
 \subsection{Trustless}
-Probably the most important property is the trustless nature of the lightning network. Basically almost all other properties are inherited from this one. 
-Trustless means that one does not need to trust anybody --- except the Bitcoin Network --- who participates in the network in order to participate. \todo{well the bitcoin network only needs to be trusted in the sense that there is no 51\% attack. I think this is poorly formulated}
+Probably the most important property is the trustless nature of the Lightning Network. Basically almost all other properties are inherited from this one. 
+Trustless means that one does not need to trust anybody --- except the Bitcoin network --- who participates in the network in order to participate. \todo{well the Bitcoin network only needs to be trusted in the sense that there is no 51\% attack. I think this is poorly formulated}
 The hashed time locked contracts enforce the routing of payments within the network of payment channels.
-Revocable Sequence Maturity contracts also use timlelocked contracts to establish a payment channel in with a channel partner.
+Revocable Sequence Maturity contracts also use timelocked contracts to establish a payment channel in with a channel partner.
 In case of disagreement or fraudulent behaviour all rules of the contracts are enforced by the Bitcoin blockchain which is a well running and secure consensus based protocol. 
 
 \subsection{Permissionless}
@@ -647,7 +650,7 @@ There is no central authority that has to be asked in order to participate.
 As long as users play by the rules of the protocol everyone else who also plays by the rules will allow them to participate.
 
 \subsection{Decentralized}
-The first properties make the lightning network decentralized by design.
+The first properties make the Lightning Network decentralized by design.
 In particular there is no central 3rd party like a bank or a payment provider which needs to be trusted in order to make or receive a payment.
 Yes there can be very central nodes --- the so called hubs --- but that does not mean that the network is centralized or controlled by that node.
 In particular one cannot be censored. 
@@ -659,34 +662,34 @@ Unless one specifically tells the recipient that one made a particular payment t
 Even if the sender reveals this information the recipient cannot know for sure.
 
 \subsection{Lightning Fast}
-The name of the lightning network hold its promise.
+The name of the Lightning Network holds its promise.
 Once a route was found a payment is routed as quickly as TCP traffic is processed on the internet.
 Which means that a payment needs about 150 milliseconds from America to Europe.
 Finding a route currently can take a couple of seconds but it is only a matter of time until smarter routing algorithms will be implemented.
 
 
 \subsection{Cheap}
-One of the first payments for a physical good happened in September 2018 and was set up be me. 
+One of the first payments for a physical good happened in September 2018 and was set up by me. 
 I have helped ROOM77 to receive their first payments with the Lightning Network for a drink.
 The second payment that was made on that evening was for roughly 4 mBTC which traded at 30 USD at the time of payment.
 The routing fee which the network charged was 2.3 Satoshi.
-At that thime this was 0.017 Cent for a 30 Dollar bill. 
+At that time this was 0.017 Cent for a 30 Dollar bill. 
 This is even less than a tenth of a percent of the amount.
 
 
-\seubsection{Secure}
-The lightning network is very secure to use.
+\subsection{Secure}
+The Lightning Network is very secure to use.
 I mean there is obviously never full security.
-Of course one can missuse the software or the software could have a bug.
-However the protocol itself is disigned to have all these strong properties in mind.
-Many of which are inherited from the bitcoin network.
-Other than then the lightning network uses modern and strong forms of encryption which is currently known to be unbreakable.
+Of course one can misuse the software or the software could have a bug.
+However the protocol itself is designed to have all these strong properties in mind.
+Many of which are inherited from the Bitcoin network.
+Other than then the Lightning Network uses modern and strong forms of encryption which is currently known to be unbreakable.
 Obviously no one can guarantee that the encryption might not be broken in the future but the same holds true for any encrypted system and in particular for every other cryptocurrency.
 
 The biggest security risk will come from the user.
-If for example the server is running a lightning network node is not protected properly people can walk in and steal the users funds.
-This is similar to the situation with cash for which one would also have to secure ones wallet.
-Noone would leave it openly on a table in a bar and leave the room.
+If for example the server is running a Lightning Network node is not protected properly people can walk in and steal the users' funds.
+This is similar to the situation with cash for which one would also have to secure one's wallet.
+No one would leave it openly on a table in a bar and leave the room.
 
 \chapter{Basics of Lightning Technology}
 Here we will describe the architecture of the protocol.
