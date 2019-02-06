@@ -1,11 +1,11 @@
 # About
 I am trying to create an educational open source book about the Lightning Network.
-The scope is to spread education about the lightning network for developers and for people interested in Bitcoin, blockchain technologies and cryptographic currencies.
+The scope is to spread education about the Lightning Network for developers and for people interested in Bitcoin, blockchain technologies and cryptographic currencies.
 This book should also serve as a reference.
 
 Find the first draft with a table of contents at https://github.com/renepickhardt/The-Lightning-Network-Book/blob/master/lightning-network-book-draft.pdf
 
-If you want to learn more about my educational efforts please have a look at my educational Youtube channel about the Lightning Network over at: https://www.youtube.com/user/RenePickhardt
+If you want to learn more about my educational efforts please have a look at my educational YouTube channel about the Lightning Network over at: https://www.youtube.com/user/RenePickhardt
 
 # Support this work
 Since this is an open source effort I rely on support of the community. In order to be able to work full time on this book I need a budget of 21.21212121 BTC (with current exchange rates). As writing a technical book was my childhood dream and since I am interested in education in general I am willing to self-fund part of my costs. Still I will be grateful and in particular more focused if you support this work.
